@@ -2,15 +2,15 @@ package code;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Lexico {
+	// Tabela de Lexemas
+	HashMap<String, String> Lexemas = new HashMap<String, String>();
 
-	public static void main(String[] args) {
-
-		// Tabela de Lexemas
-		HashMap<String, String> Lexemas = new HashMap<String, String>();
+	// Retorna a Tabela de Lexemas
+	HashMap<String, String> TabelaLexemas() {
 
 		Lexemas.put("main", "MAIN");
 		Lexemas.put("int", "INT");
@@ -48,15 +48,17 @@ public class Lexico {
 		 */
 
 		/* Exibe conteudo usando Iterator */
-		Set set = Lexemas.entrySet();
-		Iterator iterator = set.iterator();
+		Set<Entry<String, String>> set = Lexemas.entrySet();
+		Iterator<Entry<String, String>> iterator = set.iterator();
 		while (iterator.hasNext()) {
-			Map.Entry mentry = (Map.Entry) iterator.next();
+			Entry<String, String> mentry = iterator.next();
 			System.out.print("CHAVE: " + mentry.getKey() + " - VALOR: ");
 			System.out.println(mentry.getValue());
 		}
 
 		System.out.println("oi");
-
+		
+		return Lexemas;
 	}
+
 }
