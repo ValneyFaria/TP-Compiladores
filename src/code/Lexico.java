@@ -43,22 +43,31 @@ public class Lexico {
 		/*
 		 * [A-Za-z] ([A-Za-z] | [0-9] | _ )* [0-9] ([0-9])* [0-9] ([0-9])*.[0-9]
 		 * ([0-9])*
-		 * 
-		 * 
 		 */
+		System.out.println("oi");
 
+		return Lexemas;
+	}
+
+	void ShowLexemasTable() {
 		/* Exibe conteudo usando Iterator */
 		Set<Entry<String, String>> set = Lexemas.entrySet();
 		Iterator<Entry<String, String>> iterator = set.iterator();
 		while (iterator.hasNext()) {
 			Entry<String, String> mentry = iterator.next();
-			System.out.print("CHAVE: " + mentry.getKey() + " - VALOR: ");
+			System.out.print("CHAVE: " + mentry.getKey() + " VALOR: ");
+			printaSpaces(mentry.getKey().length());
+			
+			
 			System.out.println(mentry.getValue());
 		}
-
-		System.out.println("oi");
-		
-		return Lexemas;
 	}
 
+	private void printaSpaces(int i) {
+		while(i < 4) {
+			System.out.print(" ");
+			i++;
+		}
+		
+	}
 }
