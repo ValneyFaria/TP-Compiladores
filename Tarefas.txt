@@ -1,0 +1,4 @@
+Definir funçoes pra identificar o tipo dos textos recebidos
+Ler tudo, indentificar os lexemas e transformar eles em tokens
+Definir uma estrutura para armazenar separadores, operadores, palavras reservadas
+ 
