@@ -5,6 +5,14 @@ public class Token {
 	String lexema;
 	int nLinha;
 
+	Token() {
+	}
+	
+	Token(String nomeToken, int nLinha) {
+		this.setNomeToken(nomeToken);
+		this.setnLinha(nLinha);
+	}
+
 	public String getNomeToken() {
 		return nomeToken;
 	}

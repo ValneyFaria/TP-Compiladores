@@ -1,5 +1,6 @@
 package code;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -26,18 +27,65 @@ public class Compilador {
 	 */
 
 	ArrayList<Token> findTokens(String source) {
-		String auS = null;
+		String sLida = "", auX = "", tempS = "";
+		ArrayList<Token> tokenList = new ArrayList<Token>();
+		ArrayList<String> tempList = new ArrayList<String>();
 
 		// Enquanto todos os caracteres não forem lidos
 		while (i != source.length()) {
-			auS = getChar(source, i);
+			// Le o caractere na posicao
+			sLida = getChar(source, i);
+			System.out.println("sLida: " + sLida);
 
+			// Incrementa o numero de Linhas se for um "\n"
+			if (sLida.equals("\n")) {
+				contaLinhas++;
+			}
+
+			// Concatena o caractere ao final da string
+			auX = auX + sLida;
+			System.out.println("auX: " + auX);
+
+			// Verifica se o caracter é um separador
+			if (isSeparator(sLida)) {
+				System.out.println("É separador!");
+				System.out.println("auX: " + auX);
+				// Adiciona um token contendo o nome do Token e a linha
+				tokenList.add(new Token(auX, contaLinhas));
+				// Reseta a String
+				auX = "";
+			}
+
+			// Incrementa o numero de colunas
+			contaColunas++;
 			i++;
 		}
 
-		return null;
+		System.out.println("\nTOKENS LIST:\n");
+		printTokenList(tokenList);
+
+		return tokenList;
 	}
 
+	private void printTokenList(ArrayList<Token> tokenList) {
+		for (int i = 0; i < tokenList.size(); i++) {
+			System.out.println("nome: " + tokenList.get(i).getNomeToken());
+			System.out.println("nLinha: " + tokenList.get(i).getnLinha());
+		}
+
+	}
+
+	// Retorna se uma string é um separador
+	boolean isSeparator(String s) {
+		for (String string : separadores) {
+			if (s.equals(string)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Retorna o caractere de uma dada posicao numa string
 	String getChar(String source, int i) {
 		String s = Character.toString(source.charAt(i));
 
@@ -46,11 +94,10 @@ public class Compilador {
 		}
 		if (Character.isSpaceChar((s.charAt(0)))) {
 			System.out.println("CHAR LIDO: SPACE");
-		} 
+		}
 		if (s.equals("\t")) {
 			System.out.println("CHAR LIDO: TAB");
-		}
-		else {
+		} else {
 			System.out.println("CHAR LIDO: " + s);
 		}
 
