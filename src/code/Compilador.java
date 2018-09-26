@@ -29,21 +29,24 @@ public class Compilador {
 		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
 
+		System.out.println("\n\nBUSCANDO TOKENS");
 		// Enquanto todos os caracteres não forem lidos
 		while (i != source.length()) {
 			// Le o caractere na posicao
 			sLida = getChar(source, i);
-			System.out.println("sLida: " + sLida);
+			
+			System.out.printf("\nCHAR LIDO: %s\n", sLida);
 
 			// Incrementa o numero de Linhas se for um "\n"
 			if (sLida.equals("\n")) {
 				contaLinhas++;
 			}
 
-			// Se o caractere não é separador
-			if (!isSeparator(sLida)) {
+			// Se o caractere não é separador nem operador
+			if (!isSeparator(sLida) && !isOperador(sLida)) {
 				// Concatena o caractere ao final da string
 				auX = auX + sLida;
+				System.out.println("Nem Operador, nem Separador");
 				System.out.println("auX: " + auX);
 			}
 
@@ -54,8 +57,25 @@ public class Compilador {
 
 				// Adiciona um token contendo o nome do Token, a linha e a
 				// coluna
+				// adiciona token
+				tokenList.add(new Token(auX, contaLinhas, i));
+				// adiciona o separador
+				tokenList.add(new Token(sLida, contaLinhas, i));
+				System.out.printf("Token (%s) Adicionado, Separador (%s) Adicionado\n", auX, sLida);
+				// Reseta a String
+				auX = "";
+			}
+
+			// Verifica se o caractere é um operador
+			else if (isOperador(sLida)) {
+				System.out.println("É Operador!");
+				System.out.println("auX: " + auX);
+
+				// Adiciona um token contendo o nome do Token, a linha e a
+				// coluna
 				tokenList.add(new Token(auX, contaLinhas, i)); // adiciona token
-				tokenList.add(new Token(sLida, contaLinhas, i)); // adiciona separador
+				tokenList.add(new Token(sLida, contaLinhas, i)); // adiciona
+																	// separador
 				// Reseta a String
 				auX = "";
 			}
@@ -65,7 +85,7 @@ public class Compilador {
 			i++;
 		}
 
-		System.out.println("\nTOKENS LIST:\n");
+		System.out.println("TOKENS LIST:\n");
 		printTokenList(tokenList);
 
 		return tokenList;
@@ -80,7 +100,7 @@ public class Compilador {
 
 	}
 
-	// Retorna se uma string é um separador
+	// Retorna se uma dada string é um separador
 	boolean isSeparator(String s) {
 		for (String string : separadores) {
 			if (s.equals(string)) {
@@ -90,21 +110,32 @@ public class Compilador {
 		return false;
 	}
 
+	// Retorna se uma dada string é um separador
+	boolean isOperador(String s) {
+		for (String string : operadores) {
+			if (s.equals(string)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	// Retorna o caractere de uma dada posicao numa string
 	String getChar(String source, int i) {
 		String s = Character.toString(source.charAt(i));
-
-		if (s.equals("\n")) {
-			System.out.println("CHAR LIDO: BarraN");
-		}
-		if (Character.isSpaceChar((s.charAt(0)))) {
-			System.out.println("CHAR LIDO: SPACE");
-		}
-		if (s.equals("\t")) {
-			System.out.println("CHAR LIDO: TAB");
-		} else {
-			System.out.println("CHAR LIDO: " + s);
-		}
+//
+//		if (s.equals("\n")) {
+//			System.out.println("CHAR LIDO: BarraN");
+//		}
+//		if (Character.isSpaceChar((s.charAt(0)))) {
+//			System.out.println("CHAR LIDO: SPACE");
+//		}
+//		if (s.equals("\t")) {
+//			System.out.println("CHAR LIDO: TAB");
+//		} else {
+//			System.out.println("CHAR LIDO: " + s);
+//		}
 
 		return s;
 	}
