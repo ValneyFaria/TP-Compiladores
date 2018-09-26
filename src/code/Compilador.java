@@ -56,15 +56,15 @@ public class Compilador {
 				System.out.println("auX: " + auX);
 				
 				// String t recebe o caractere anterior
-				String t = getChar(source, i - 1);
+				String sBefore = getChar(source, i - 1);
 				// Verifica se o simbolo anterior é um operador
-				if(isOperador(t)) {
+				if(isOperador(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				}
 				// Verifica se o simbolo anterior é um separador
-				else if (isSeparator(t)) {
+				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
