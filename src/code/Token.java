@@ -1,32 +1,18 @@
 package code;
 
 public class Token {
-	String nomeToken;
-	String lexema;
 	int nLinha;
+	int nColuna;
+	String lexema;
+	String nomeToken;
 
 	Token() {
 	}
-	
-	Token(String nomeToken, int nLinha) {
+
+	Token(String nomeToken, int nLinha, int nColuna) {
 		this.setNomeToken(nomeToken);
 		this.setnLinha(nLinha);
-	}
-
-	public String getNomeToken() {
-		return nomeToken;
-	}
-
-	public void setNomeToken(String nomeToken) {
-		this.nomeToken = nomeToken;
-	}
-
-	public String getLexema() {
-		return lexema;
-	}
-
-	public void setLexema(String lexema) {
-		this.lexema = lexema;
+		this.setnColuna(nColuna);
 	}
 
 	public int getnLinha() {
@@ -37,4 +23,27 @@ public class Token {
 		this.nLinha = nLinha;
 	}
 
+	public int getnColuna() {
+		return nColuna;
+	}
+
+	public void setnColuna(int nColuna) {
+		this.nColuna = nColuna;
+	}
+
+	public String getLexema() {
+		return lexema;
+	}
+
+	public void setLexema(String lexema) {
+		this.lexema = lexema;
+	}
+
+	public String getNomeToken() {
+		return nomeToken;
+	}
+
+	public void setNomeToken(String nomeToken) {
+		this.nomeToken = nomeToken;
+	}
 }

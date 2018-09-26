@@ -1,6 +1,5 @@
 package code;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,9 +26,8 @@ public class Compilador {
 	 */
 
 	ArrayList<Token> findTokens(String source) {
-		String sLida = "", auX = "", tempS = "";
+		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
-		ArrayList<String> tempList = new ArrayList<String>();
 
 		// Enquanto todos os caracteres não forem lidos
 		while (i != source.length()) {
@@ -42,16 +40,22 @@ public class Compilador {
 				contaLinhas++;
 			}
 
-			// Concatena o caractere ao final da string
-			auX = auX + sLida;
-			System.out.println("auX: " + auX);
+			// Se o caractere não é separador
+			if (!isSeparator(sLida)) {
+				// Concatena o caractere ao final da string
+				auX = auX + sLida;
+				System.out.println("auX: " + auX);
+			}
 
-			// Verifica se o caracter é um separador
-			if (isSeparator(sLida)) {
+			// Verifica se o caractere é um separador
+			else if (isSeparator(sLida)) {
 				System.out.println("É separador!");
 				System.out.println("auX: " + auX);
-				// Adiciona um token contendo o nome do Token e a linha
-				tokenList.add(new Token(auX, contaLinhas));
+
+				// Adiciona um token contendo o nome do Token, a linha e a
+				// coluna
+				tokenList.add(new Token(auX, contaLinhas, i)); // adiciona token
+				tokenList.add(new Token(sLida, contaLinhas, i)); // adiciona separador
 				// Reseta a String
 				auX = "";
 			}
@@ -69,8 +73,9 @@ public class Compilador {
 
 	private void printTokenList(ArrayList<Token> tokenList) {
 		for (int i = 0; i < tokenList.size(); i++) {
-			System.out.println("nome: " + tokenList.get(i).getNomeToken());
-			System.out.println("nLinha: " + tokenList.get(i).getnLinha());
+			System.out.println(i + " - nome: " + tokenList.get(i).getNomeToken());
+			System.out.println("	nLinha: " + tokenList.get(i).getnLinha());
+			System.out.println("	nColuna: " + tokenList.get(i).getnColuna());
 		}
 
 	}
