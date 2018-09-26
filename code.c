@@ -1,1 +1,1 @@
-int a = 10, b = 4, c = 5;
+char abacaxi =0,b= 2;
