@@ -7,3 +7,27 @@ Verde
 Ir lendo o source e colando os caracteres numa string
 Verificar o casamento
 Adicionar a lista de tokens
+
+
+	/*
+	 * self.listaTokens = {'separadores':[' ', '\n', '\t', '(',
+	 * ')','{','}',',',';','\r'],
+	 * 'operadores':['+','-','*','/','=','<','<=','>','>=','==','!=','&&','||'],
+	 * 'reservadas':['main','int','float','if','else','while','read','print'],
+	 * 'inteiro': [], 'float': [], 'identificadores':[], 'identificadores1':[],
+	 * 'ocorrencias':[], 'operadores1':[], 'separadores1':[], 'reservadas1':[],
+	 * 'erros':[], 'tokens':[]}
+	 */
+	 
+Pode ser adicionado em getChar();
+		// if (s.equals("\n")) {
+		// System.out.println("CHAR LIDO: BarraN");
+		// }
+		// if (Character.isSpaceChar((s.charAt(0)))) {
+		// System.out.println("CHAR LIDO: SPACE");
+		// }
+		// if (s.equals("\t")) {
+		// System.out.println("CHAR LIDO: TAB");
+		// } else {
+		// System.out.println("CHAR LIDO: " + s);
+		// }

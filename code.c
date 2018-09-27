@@ -1,1 +1,2 @@
-char abacaxi =0,b= 2;
+int a;
+char b;

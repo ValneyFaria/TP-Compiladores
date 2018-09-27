@@ -15,16 +15,6 @@ public class Compilador {
 	ArrayList<String> reservadas = new ArrayList<>(
 			Arrays.asList("main", "int", "float", "if", "else", "while", "read", "print"));
 
-	/*
-	 * self.listaTokens = {'separadores':[' ', '\n', '\t', '(',
-	 * ')','{','}',',',';','\r'],
-	 * 'operadores':['+','-','*','/','=','<','<=','>','>=','==','!=','&&','||'],
-	 * 'reservadas':['main','int','float','if','else','while','read','print'],
-	 * 'inteiro': [], 'float': [], 'identificadores':[], 'identificadores1':[],
-	 * 'ocorrencias':[], 'operadores1':[], 'separadores1':[], 'reservadas1':[],
-	 * 'erros':[], 'tokens':[]}
-	 */
-
 	ArrayList<Token> findTokens(String source) {
 		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
@@ -47,18 +37,25 @@ public class Compilador {
 				System.out.println("Nem Operador, nem Separador.\nConcatenando...");
 				// Concatena o caractere ao final da string
 				auX = auX + sLida;
-				System.out.println("auX: " + auX);
+				System.out.printf("auX: [%s]\n", auX);
 			}
 
 			// Verifica se o caractere é um separador
 			else if (isSeparator(sLida)) {
 				System.out.println("É separador!");
-				System.out.println("auX: " + auX);
+				System.out.printf("auX: [%s]\n", auX);
+
+				// Verifica se é BarraN
+				if (sLida.equals("\n")) {
+					System.out.println("BarraN");
+				}
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
 				// Verifica se o simbolo anterior é um operador
 				if (isOperador(sBefore)) {
+					System.out.println("Caractere Anterior é separador!");
+					System.out.printf("sBefore: [%s]\n", sBefore);
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
@@ -85,7 +82,7 @@ public class Compilador {
 			// Verifica se o caractere é um operador
 			else if (isOperador(sLida)) {
 				System.out.println("É Operador!");
-				System.out.println("auX: " + auX);
+				System.out.printf("auX: [%s]\n", auX);
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
@@ -113,12 +110,22 @@ public class Compilador {
 				auX = "";
 			}
 
+			// Se i é igual ao tamanho da palavra e o concanetado não é nem
+			// operador nem separador
+			else if (i == source.length()) {
+				// adiciona token
+				tokenList.add(new Token(auX, contaLinhas, i - auX.length()));
+				System.out.printf("Token (%s) Adicionado\n", auX);
+				// Reseta a String
+				auX = "";
+			}
+
 			// Incrementa o numero de colunas
 			contaColunas++;
 			i++;
 		}
 
-		System.out.println("TOKENS LIST:\n");
+		System.out.println("\nTOKENS LIST:\n");
 		printTokenList(tokenList);
 
 		return tokenList;
@@ -150,26 +157,12 @@ public class Compilador {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
 	// Retorna o caractere de uma dada posicao numa string
 	String getChar(String source, int i) {
 		String s = Character.toString(source.charAt(i));
-		//
-		// if (s.equals("\n")) {
-		// System.out.println("CHAR LIDO: BarraN");
-		// }
-		// if (Character.isSpaceChar((s.charAt(0)))) {
-		// System.out.println("CHAR LIDO: SPACE");
-		// }
-		// if (s.equals("\t")) {
-		// System.out.println("CHAR LIDO: TAB");
-		// } else {
-		// System.out.println("CHAR LIDO: " + s);
-		// }
-
 		return s;
 	}
 
@@ -196,5 +189,4 @@ public class Compilador {
 	public void setI(int i) {
 		this.i = i;
 	}
-
 }
