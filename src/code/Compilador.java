@@ -1,18 +1,18 @@
 package code;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Compilador {
 	public int contaLinhas = 1, contaColunas = 1, i = 0;
 
-	ArrayList<String> separadores = new ArrayList<>(
+	final ArrayList<String> separadores = new ArrayList<>(
 			Arrays.asList(" ", "\n", "\t", "(", "*", ")", "{", "}", ",", ";", "\r"));
 
-	ArrayList<String> operadores = new ArrayList<>(
+	final ArrayList<String> operadores = new ArrayList<>(
 			Arrays.asList("+", "-", "*", "/", "=", "<", "<=", ">", ">=", "==", "!=", "&&", "||"));
 
-	ArrayList<String> reservadas = new ArrayList<>(
+	final ArrayList<String> reservadas = new ArrayList<>(
 			Arrays.asList("main", "int", "float", "if", "else", "while", "read", "print"));
 
 	ArrayList<Token> findTokens(String source) {
@@ -124,20 +124,33 @@ public class Compilador {
 			contaColunas++;
 			i++;
 		}
-
+		
+		tokenList = removeSpaces(tokenList);
+		
 		System.out.println("\nTOKENS LIST:\n");
 		printTokenList(tokenList);
 
 		return tokenList;
 	}
-
+	
+	// Exibe os Tokens na Lista de Tokens
 	private void printTokenList(ArrayList<Token> tokenList) {
 		for (int i = 0; i < tokenList.size(); i++) {
 			System.out.println(i + " - nome: " + tokenList.get(i).getNomeToken());
 			System.out.println("	nLinha: " + tokenList.get(i).getnLinha());
 			System.out.println("	nColuna: " + tokenList.get(i).getnColuna());
 		}
+	}
 
+	// Remove os Espaços na Lista de Tokens
+	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
+		System.out.println("Removendo Espacos...");
+		for (int i = 0; i < tokenList.size(); i++) {
+			if (tokenList.get(i).getNomeToken().equals(" ")) {
+				tokenList.remove(i);
+			}
+		}
+		return tokenList;
 	}
 
 	// Retorna se uma dada string é um separador
@@ -162,8 +175,7 @@ public class Compilador {
 
 	// Retorna o caractere de uma dada posicao numa string
 	String getChar(String source, int i) {
-		String s = Character.toString(source.charAt(i));
-		return s;
+		return Character.toString(source.charAt(i));
 	}
 
 	public int getContaLinhas() {

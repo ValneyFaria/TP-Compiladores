@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Lexico {
 	// Tabela de Lexemas
-	HashMap<String, String> Lexemas = new HashMap<String, String>();
+	final HashMap<String, String> Lexemas = new HashMap<String, String>();
 
 	// Retorna a Tabela de Lexemas
 	HashMap<String, String> TabelaLexemas() {
@@ -35,10 +35,6 @@ public class Lexico {
 		Lexemas.put("-", "MINUS");
 		Lexemas.put("*", "MULT");
 		Lexemas.put("/", "DIV");
-		Lexemas.put("int", "INT");
-		Lexemas.put("int", "INT");
-		Lexemas.put("int", "INT");
-		Lexemas.put("int", "INT");
 
 		/*
 		 * [A-Za-z] ([A-Za-z] | [0-9] | _ )* [0-9] ([0-9])* [0-9] ([0-9])*.[0-9]
