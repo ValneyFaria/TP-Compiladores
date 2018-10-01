@@ -3,6 +3,7 @@ package code;
 import java.util.Arrays;
 import java.util.ArrayList;
 
+// TODO: OI
 public class Compilador {
 	public int contaLinhas = 1, contaColunas = 1, i = 0;
 
@@ -20,7 +21,7 @@ public class Compilador {
 		ArrayList<Token> tokenList = new ArrayList<Token>();
 
 		System.out.println("\n\nBUSCANDO TOKENS");
-		// Enquanto todos os caracteres não forem lidos
+		// Enquanto todos os caracteres nï¿½o forem lidos
 		while (i != source.length()) {
 			// Le o caractere na posicao
 			sLida = getChar(source, i);
@@ -32,7 +33,7 @@ public class Compilador {
 				contaLinhas++;
 			}
 
-			// Se o caractere não é separador nem operador
+			// Se o caractere nï¿½o ï¿½ separador nem operador
 			if (!isSeparator(sLida) && !isOperador(sLida)) {
 				System.out.println("Nem Operador, nem Separador.\nConcatenando...");
 				// Concatena o caractere ao final da string
@@ -40,27 +41,27 @@ public class Compilador {
 				System.out.printf("auX: [%s]\n", auX);
 			}
 
-			// Verifica se o caractere é um separador
+			// Verifica se o caractere ï¿½ um separador
 			else if (isSeparator(sLida)) {
-				System.out.println("É separador!");
+				System.out.println("ï¿½ separador!");
 				System.out.printf("auX: [%s]\n", auX);
 
-				// Verifica se é BarraN
+				// Verifica se ï¿½ BarraN
 				if (sLida.equals("\n")) {
 					System.out.println("BarraN");
 				}
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o simbolo anterior é um operador
+				// Verifica se o simbolo anterior ï¿½ um operador
 				if (isOperador(sBefore)) {
-					System.out.println("Caractere Anterior é separador!");
+					System.out.println("Caractere Anterior ï¿½ separador!");
 					System.out.printf("sBefore: [%s]\n", sBefore);
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o simbolo anterior é um separador
+				// Verifica se o simbolo anterior ï¿½ um separador
 				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
@@ -79,20 +80,20 @@ public class Compilador {
 				auX = "";
 			}
 
-			// Verifica se o caractere é um operador
+			// Verifica se o caractere ï¿½ um operador
 			else if (isOperador(sLida)) {
-				System.out.println("É Operador!");
+				System.out.println("ï¿½ Operador!");
 				System.out.printf("auX: [%s]\n", auX);
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o simbolo anterior é um operador
+				// Verifica se o simbolo anterior ï¿½ um operador
 				if (isOperador(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o simbolo anterior é um separador
+				// Verifica se o simbolo anterior ï¿½ um separador
 				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas, i - sLida.length()));
@@ -110,7 +111,7 @@ public class Compilador {
 				auX = "";
 			}
 
-			// Se i é igual ao tamanho da palavra e o concanetado não é nem
+			// Se i ï¿½ igual ao tamanho da palavra e o concanetado nï¿½o ï¿½ nem
 			// operador nem separador
 			else if (i == source.length()) {
 				// adiciona token
@@ -142,7 +143,7 @@ public class Compilador {
 		}
 	}
 
-	// Remove os Espaços na Lista de Tokens
+	// Remove os Espaï¿½os na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
 		System.out.println("Removendo Espacos...");
 		for (int i = 0; i < tokenList.size(); i++) {
@@ -153,7 +154,7 @@ public class Compilador {
 		return tokenList;
 	}
 
-	// Retorna se uma dada string é um separador
+	// Retorna se uma dada string ï¿½ um separador
 	boolean isSeparator(String s) {
 		for (String string : separadores) {
 			if (s.equals(string)) {
@@ -163,7 +164,7 @@ public class Compilador {
 		return false;
 	}
 
-	// Retorna se uma dada string é um separador
+	// Retorna se uma dada string ï¿½ um separador
 	boolean isOperador(String s) {
 		for (String string : operadores) {
 			if (s.equals(string)) {
