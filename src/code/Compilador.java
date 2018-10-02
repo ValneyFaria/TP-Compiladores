@@ -3,9 +3,11 @@ package code;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-// TODO: OI
+// TODO: Tratar os "\n"
+// TODO: Tratar operadores binários
+
 public class Compilador {
-	public int contaLinhas = 1, contaColunas = 1, i = 0;
+	public int contaLinhas = 1, i = 0;
 
 	final ArrayList<String> separadores = new ArrayList<>(
 			Arrays.asList(" ", "\n", "\t", "(", "*", ")", "{", "}", ",", ";", "\r"));
@@ -33,7 +35,7 @@ public class Compilador {
 				contaLinhas++;
 			}
 
-			// Se o caractere não É Separador nem operador
+			// Se o caractere não é Separador nem operador
 			if (!isSeparator(sLida) && !isOperador(sLida)) {
 				System.out.println("Nem Operador, nem Separador.\nConcatenando...");
 				// Concatena o caractere ao final da string
@@ -41,19 +43,19 @@ public class Compilador {
 				System.out.printf("auX: [%s]\n", auX);
 			}
 
-			// Verifica se o caractere ï¿½ um separador
+			// Verifica se o caractere é um separador
 			else if (isSeparator(sLida)) {
 				System.out.println("É Separador!");
 				System.out.printf("auX: [%s]\n", auX);
 
-				// Verifica se ï¿½ BarraN
+				// Verifica se é BarraN
 				if (sLida.equals("\n")) {
 					System.out.println("BarraN");
 				}
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o simbolo anterior ï¿½ um operador
+				// Verifica se o simbolo anterior é um operador
 				if (isOperador(sBefore)) {
 					System.out.println("Caractere Anterior é Separador!");
 					System.out.printf("sBefore: [%s]\n", sBefore);
@@ -61,14 +63,13 @@ public class Compilador {
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o simbolo anterior ï¿½ um separador
+				// Verifica se o simbolo anterior é um separador
 				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				} else {
-					// Adiciona um token contendo o nome do Token, a linha e a
-					// coluna
+					// Adiciona um token contendo o nome do Token e a linha
 					// adiciona token
 					tokenList.add(new Token(auX, contaLinhas));
 					// adiciona o separador
@@ -80,40 +81,51 @@ public class Compilador {
 				auX = "";
 			}
 
-			// Verifica se o caractere ï¿½ um operador
+			// Verifica se o caractere é um operador
 			else if (isOperador(sLida)) {
 				System.out.println("É Operador!");
 				System.out.printf("auX: [%s]\n", auX);
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o simbolo anterior ï¿½ um operador
+				// Verifica se o simbolo anterior é um operador
 				if (isOperador(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
-					System.out.printf("Separador (%s) Adicionado\n", sLida);
+					System.out.printf("Operador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o simbolo anterior ï¿½ um separador
+				// Verifica se o simbolo anterior é um separador
 				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
-					System.out.printf("Separador (%s) Adicionado\n", sLida);
+					System.out.printf(" AKI Separador (%s) Adicionado\n", sLida);
 				} else {
-					// Adiciona um token contendo o nome do Token, a linha e a
-					// coluna
-					// adiciona token
+					// Adiciona um token contendo o nome do Token e a linha
 					tokenList.add(new Token(auX, contaLinhas));
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("Token (%s) Adicionado, Separador (%s) Adicionado\n", auX, sLida);
 				}
+
+				// Verificação para operadores binários
+				// String t recebe o caractere Posterior
+				String sAfter = getChar(source, i + 1);
+				// Verifica se o simbolo anterior é um operador
+				if (isOperador(sAfter)) {
+					// Concatena as duas Strings
+					sLida = sLida + sAfter;
+					// adiciona o Operador
+					tokenList.add(new Token(sLida, contaLinhas));
+					System.out.printf("Operador (%s) Adicionado\n", sLida);
+					i++;
+				}
+
 				// Reseta a String
 				auX = "";
 			}
 
-			// Se i ï¿½ igual ao tamanho da palavra e o concanetado não ï¿½
-			// nem
-			// operador nem separador
+			// Se i é igual ao tamanho da palavra e o concanetado não é
+			// nem operador nem separador
 			else if (i == source.length()) {
 				// adiciona token
 				tokenList.add(new Token(auX, contaLinhas));
@@ -122,8 +134,6 @@ public class Compilador {
 				auX = "";
 			}
 
-			// Incrementa o numero de colunas
-			contaColunas++;
 			i++;
 		}
 
@@ -139,12 +149,12 @@ public class Compilador {
 	// Exibe os Tokens na Lista de Tokens
 	private void printTokenList(ArrayList<Token> tokenList) {
 		for (int i = 0; i < tokenList.size(); i++) {
-			System.out.println(i + " - nome: " + tokenList.get(i).getNomeToken());
-			//System.out.println("	nLinha: " + tokenList.get(i).getnLinha());
+			System.out.printf("%02d - Nome: %s\n", i, tokenList.get(i).getNomeToken());
+			// System.out.println(" nLinha: " + tokenList.get(i).getnLinha());
 		}
 	}
 
-	// Remove os Espaï¿½os na Lista de Tokens
+	// Remove os Espaços na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
 		System.out.println("Removendo Espacos...");
 		for (int i = 0; i < tokenList.size(); i++) {
@@ -155,7 +165,7 @@ public class Compilador {
 		return tokenList;
 	}
 
-	// Retorna se uma dada string ï¿½ um separador
+	// Retorna se uma dada string é um separador
 	boolean isSeparator(String s) {
 		for (String string : separadores) {
 			if (s.equals(string)) {
@@ -165,7 +175,7 @@ public class Compilador {
 		return false;
 	}
 
-	// Retorna se uma dada string ï¿½ um separador
+	// Retorna se uma dada string é um separador
 	boolean isOperador(String s) {
 		for (String string : operadores) {
 			if (s.equals(string)) {
