@@ -1,2 +1,5 @@
-int a= 0 ;
-char b;
+if(a <= 2) {
+
+	int a = 2;
+	
+	}

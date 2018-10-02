@@ -2,17 +2,14 @@ package code;
 
 public class Token {
 	int nLinha;
-	int nColuna;
 	String lexema;
 	String nomeToken;
 
 	Token() {
 	}
 
-	Token(String nomeToken, int nLinha, int nColuna) {
+	Token(String nomeToken, int nLinha) {
 		this.setNomeToken(nomeToken);
-		this.setnLinha(nLinha);
-		this.setnColuna(nColuna);
 	}
 
 	public int getnLinha() {
@@ -21,14 +18,6 @@ public class Token {
 
 	public void setnLinha(int nLinha) {
 		this.nLinha = nLinha;
-	}
-
-	public int getnColuna() {
-		return nColuna;
-	}
-
-	public void setnColuna(int nColuna) {
-		this.nColuna = nColuna;
 	}
 
 	public String getLexema() {
