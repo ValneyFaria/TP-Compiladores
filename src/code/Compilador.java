@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 // TODO: Tratar os "\n"
+// TODO: Tratar aspas
 // TODO: Tratar operadores binários
 
 public class Compilador {
