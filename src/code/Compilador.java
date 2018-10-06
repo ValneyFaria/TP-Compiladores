@@ -21,6 +21,11 @@ public class Compilador {
 	ArrayList<Token> findTokens(String source) {
 		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
+		
+		// Remove os caracteres de quebra de linha
+		System.out.println("STRING: " + source);
+		source = source.replaceAll("\\r\\n|\\r|\\n", " ");
+		System.out.println("STRING: " + source);
 
 		System.out.println("\n\nBUSCANDO TOKENS");
 		// Enquanto todos os caracteres não forem lidos
@@ -38,7 +43,7 @@ public class Compilador {
 			// Se o caractere não é Separador nem operador
 			if (!isSeparator(sLida) && !isOperador(sLida)) {
 				System.out.println("Nem Operador, nem Separador.\nConcatenando...");
-				// Concatena o caractere ao final da string
+				// Concatena o caractere ao final da string auxiliar
 				auX = auX + sLida;
 				System.out.printf("auX: [%s]\n", auX);
 			}
@@ -57,7 +62,7 @@ public class Compilador {
 				String sBefore = getChar(source, i - 1);
 				// Verifica se o simbolo anterior é um operador
 				if (isOperador(sBefore)) {
-					System.out.println("Caractere Anterior é Separador!");
+					System.out.println("Caractere Anterior é Operador!");
 					System.out.printf("sBefore: [%s]\n", sBefore);
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
@@ -78,6 +83,7 @@ public class Compilador {
 				}
 
 				// Reseta a String
+				System.out.println("Limpando AUX...");
 				auX = "";
 			}
 
@@ -129,11 +135,11 @@ public class Compilador {
 			else if (i == source.length()) {
 				// adiciona token
 				tokenList.add(new Token(auX, contaLinhas));
+				System.out.println("\n\nAnalise Final!\n");
 				System.out.printf("Token (%s) Adicionado\n", auX);
 				// Reseta a String
 				auX = "";
 			}
-
 			i++;
 		}
 
