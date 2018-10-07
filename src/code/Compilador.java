@@ -23,15 +23,17 @@ public class Compilador {
 		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
 
-		// Remove os caracteres de quebra de linha
-		print("\nLimpando Caracteres de quebra de Linha:\n");
-		print("ANTES: " + source);
-		source = source.replaceAll("\\r\\n|\\r|\\n", " ");
-		print("DEPOIS: " + source);
+		/*
+		 * // Remove os caracteres de quebra de linha print(
+		 * "\nLimpando Caracteres de quebra de Linha:\n"); print("ANTES: " +
+		 * source); source = source.replaceAll("\\r\\n|\\r|\\n", " "); print(
+		 * "DEPOIS: " + source);
+		 */
 
+		// TODO: Buscando tokens
 		print("\n\nBUSCANDO TOKENS");
 		// Enquanto todos os caracteres não forem lidos
-		while (i != source.length()) {
+		while (i < source.length()) {
 			// Le o caractere na posicao
 			sLida = getChar(source, i);
 
@@ -94,12 +96,39 @@ public class Compilador {
 				print("É Operador!");
 				System.out.printf("auX: [%s]\n", auX);
 
+				// TODO: Tratando Comentarios
+
 				if (sLida.equals("/")) {
 					// String sAfter1 recebe o caractere Posterior
 					String sAfter1 = getChar(source, i + 1);
 
 					if (sAfter1.equals("/")) {
-						print("COMENTARIO!\n");
+						print("COMENTARIO DE LINHA!\n");
+
+						// Percorre a string em busca do fim do comentário
+						while ((!sAfter1.equals("\n") || !sAfter1.equals("\0")) && (i < source.length())) {
+							// Obtem o caractere na posicao i
+							sAfter1 = getChar(source, i);
+							System.out.print("I: " + i);
+							print(" CHAR: " + sAfter1);
+							i++;
+						}
+
+					} else if (sAfter1.equals("*")) {
+						print("COMENTARIO DE BLOCO!\n");
+
+						sAfter1 = getChar(source, i + 1);
+						// Percorre a string em busca do fim do comentário
+						while (!sAfter1.equals("*") || i < source.length() + 1) {
+							String sAfter2 = getChar(source, i + 1);
+							if (sAfter2.equals("/")) {
+								i++;
+								break;
+							} else {
+								sAfter1 = getChar(source, i);
+								i++;
+							}
+						}
 					}
 				}
 
