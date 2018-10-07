@@ -11,7 +11,7 @@ public class Compilador {
 	public int contaLinhas = 1, i = 0;
 
 	final ArrayList<String> separadores = new ArrayList<>(
-			Arrays.asList(" ", "\n", "\t", "(", "*", ")", "{", "}", ",", ";", "\r"));
+			Arrays.asList(" ", "\n", "\t", "(", "*", ")", "{", "}", ",", ";", "\r", "\""));
 
 	final ArrayList<String> operadores = new ArrayList<>(
 			Arrays.asList("+", "-", "*", "/", "=", "<", "<=", ">", ">=", "==", "!=", "&&", "||"));
