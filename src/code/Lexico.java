@@ -51,15 +51,17 @@ public class Lexico {
 		Iterator<Entry<String, String>> iterator = set.iterator();
 		while (iterator.hasNext()) {
 			Entry<String, String> mentry = iterator.next();
-			System.out.print("CHAVE: " + mentry.getKey() + " VALOR: ");
+			System.out.print("CHAVE: \"" + mentry.getKey() + "\"");
 			printaSpaces(mentry.getKey().length());
+			System.out.print(" VALOR:");
+			printaSpaces(2);
 
 			System.out.println(mentry.getValue());
 		}
 	}
 
 	private void printaSpaces(int i) {
-		while (i < 4) {
+		while (i < 5) {
 			System.out.print(" ");
 			i++;
 		}
