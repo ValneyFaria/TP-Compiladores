@@ -52,6 +52,59 @@ public class Compilador {
 				System.out.printf("auX: [%s]\n", auX);
 			}
 
+			// TODO: Tratando Comentarios
+			if (sLida.equals("/")) {
+
+				// Se for possivel obter o proximo caractere
+				if (i + 1 < source.length()) {
+					// String sAfter1 recebe o caractere Posterior
+
+					if (getChar(source, i + 1).equals("/")) {
+						print("COMENTARIO DE LINHA!\n");
+						String sAfter1 = getChar(source, i);
+
+						// Percorre a string em busca do fim do comentário
+						while ((sAfter1.equals("\n") == false || sAfter1.equals("\0")) && (i < source.length())) {
+							// Obtem o caractere na posicao i
+
+							sAfter1 = getChar(source, i);
+							if (sAfter1.equals("\n"))
+								print("AAWFAW");
+							System.out.print("I: " + i);
+							print(" CHAR: " + sAfter1);
+							i++;
+						}
+						// Para resolver um problema
+						i--;
+
+					} else if (getChar(source, i + 1).equals("*")) {
+						print("COMENTARIO DE BLOCO!\n");
+						String sAfter1 = getChar(source, i);
+
+						System.out.println(sAfter1.equals("/"));
+						System.out.println(sAfter1.equals("*"));
+						// Contador Auxiliar para comentarios
+						int aux = 0;
+						while (sAfter1.equals("*") == false || sAfter1.equals("\0") && (i < source.length())) {
+							print("AFASf");
+							// 2: numero inicial de caracteres de um comentario
+							// em bloco
+							if (aux < 2) {
+								i++;
+								sAfter1 = getChar(source, i);
+							}
+							if (sAfter1.equals("/")) {
+								i++;
+								break;
+							}
+							sAfter1 = getChar(source, i);
+							// print("i: " + i + " tam: " + source.length());
+							i++;
+						}
+					}
+				}
+			}
+
 			// Verifica se o caractere lido é um separador
 			else if (isSeparator(sLida)) {
 				print("É Separador!");
@@ -95,42 +148,6 @@ public class Compilador {
 			else if (isOperador(sLida)) {
 				print("É Operador!");
 				System.out.printf("auX: [%s]\n", auX);
-
-				// TODO: Tratando Comentarios
-
-				if (sLida.equals("/")) {
-					// String sAfter1 recebe o caractere Posterior
-					String sAfter1 = getChar(source, i + 1);
-
-					if (sAfter1.equals("/")) {
-						print("COMENTARIO DE LINHA!\n");
-
-						// Percorre a string em busca do fim do comentário
-						while ((!sAfter1.equals("\n") || !sAfter1.equals("\0")) && (i < source.length())) {
-							// Obtem o caractere na posicao i
-							sAfter1 = getChar(source, i);
-							System.out.print("I: " + i);
-							print(" CHAR: " + sAfter1);
-							i++;
-						}
-
-					} else if (sAfter1.equals("*")) {
-						print("COMENTARIO DE BLOCO!\n");
-
-						sAfter1 = getChar(source, i + 1);
-						// Percorre a string em busca do fim do comentário
-						while (!sAfter1.equals("*") || i < source.length() + 1) {
-							String sAfter2 = getChar(source, i + 1);
-							if (sAfter2.equals("/")) {
-								i++;
-								break;
-							} else {
-								sAfter1 = getChar(source, i);
-								i++;
-							}
-						}
-					}
-				}
 
 				// String sBefore recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
