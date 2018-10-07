@@ -79,6 +79,7 @@ public class Compilador {
 
 					} else if (getChar(source, i + 1).equals("*")) {
 						print("COMENTARIO DE BLOCO!\n");
+						i = i + 2;
 						String sAfter1 = getChar(source, i);
 
 						System.out.println(sAfter1.equals("/"));
