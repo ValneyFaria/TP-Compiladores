@@ -1,9 +1,9 @@
 package code;
 
+import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class Lexico {
 	// Tabela de Lexemas
@@ -53,17 +53,15 @@ public class Lexico {
 			Entry<String, String> mentry = iterator.next();
 			System.out.print("CHAVE: " + mentry.getKey() + " VALOR: ");
 			printaSpaces(mentry.getKey().length());
-			
-			
+
 			System.out.println(mentry.getValue());
 		}
 	}
 
 	private void printaSpaces(int i) {
-		while(i < 4) {
+		while (i < 4) {
 			System.out.print(" ");
 			i++;
 		}
-		
 	}
 }

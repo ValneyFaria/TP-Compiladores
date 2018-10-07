@@ -3,8 +3,8 @@ package code;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-// TODO: Tratar os "\n"
-// TODO: Tratar aspas
+// TODO: Tratar os "\n" 				DONE
+// TODO: Tratar aspas 					DONE
 // TODO: Tratar operadores binários
 
 public class Compilador {
@@ -22,7 +22,7 @@ public class Compilador {
 	ArrayList<Token> findTokens(String source) {
 		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
-		
+
 		// Remove os caracteres de quebra de linha
 		System.out.println("STRING: " + source);
 		source = source.replaceAll("\\r\\n|\\r|\\n", " ");
@@ -49,7 +49,7 @@ public class Compilador {
 				System.out.printf("auX: [%s]\n", auX);
 			}
 
-			// Verifica se o caractere é um separador
+			// Verifica se o caractere lido é um separador
 			else if (isSeparator(sLida)) {
 				System.out.println("É Separador!");
 				System.out.printf("auX: [%s]\n", auX);
@@ -61,7 +61,7 @@ public class Compilador {
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o simbolo anterior é um operador
+				// Verifica se o caractere anterior é um operador
 				if (isOperador(sBefore)) {
 					System.out.println("Caractere Anterior é Operador!");
 					System.out.printf("sBefore: [%s]\n", sBefore);
@@ -69,7 +69,7 @@ public class Compilador {
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o simbolo anterior é um separador
+				// Verifica se o caractere anterior é um separador
 				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
@@ -88,43 +88,44 @@ public class Compilador {
 				auX = "";
 			}
 
-			// Verifica se o caractere é um operador
+			// Verifica se o caractere lido é um operador
 			else if (isOperador(sLida)) {
 				System.out.println("É Operador!");
 				System.out.printf("auX: [%s]\n", auX);
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o simbolo anterior é um operador
+				// Verifica se o caractere anterior é um operador
 				if (isOperador(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
-					System.out.printf("Operador (%s) Adicionado\n", sLida);
+					System.out.printf("XOW: Operador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o simbolo anterior é um separador
+				// Verifica se o caractere anterior é um separador
 				else if (isSeparator(sBefore)) {
-					// adiciona o separador
-					tokenList.add(new Token(sLida, contaLinhas));
-					System.out.printf(" AKI Separador (%s) Adicionado\n", sLida);
+					// Verificação para operadores binários
+					// String t recebe o caractere Posterior
+					String sAfter = getChar(source, i + 1);
+					// Verifica se o simbolo anterior é um operador
+					if (isOperador(sAfter)) {
+						// Concatena as duas Strings
+						sLida = sLida + sAfter;
+						// adiciona o Operador
+						tokenList.add(new Token(sLida, contaLinhas));
+						System.out.printf("Operador (%s) Adicionado\n", sLida);
+						i++;
+					} else {
+						// adiciona o separador
+						tokenList.add(new Token(sLida, contaLinhas));
+						System.out.printf(" AKI Separador (%s) Adicionado\n", sLida);
+					}
+
 				} else {
 					// Adiciona um token contendo o nome do Token e a linha
 					tokenList.add(new Token(auX, contaLinhas));
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("Token (%s) Adicionado, Separador (%s) Adicionado\n", auX, sLida);
-				}
-
-				// Verificação para operadores binários
-				// String t recebe o caractere Posterior
-				String sAfter = getChar(source, i + 1);
-				// Verifica se o simbolo anterior é um operador
-				if (isOperador(sAfter)) {
-					// Concatena as duas Strings
-					sLida = sLida + sAfter;
-					// adiciona o Operador
-					tokenList.add(new Token(sLida, contaLinhas));
-					System.out.printf("Operador (%s) Adicionado\n", sLida);
-					i++;
 				}
 
 				// Reseta a String

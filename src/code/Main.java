@@ -1,7 +1,7 @@
 package code;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 public class Main {
 
@@ -22,7 +22,7 @@ public class Main {
 
 		// String que contem todos os caracteres do arquivo de código
 		source = rs.Reader(fileName);
-		
+
 		Compilador c = new Compilador();
 
 		// Lista que armazena os tokens lidos da entrada
