@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 // TODO: Tratar os "\n" 				DONE
 // TODO: Tratar aspas 					DONE
+// TODO: Tratar Comentários				DONE
 // TODO: Tratar operadores binários
 
 public class Compilador {
@@ -23,12 +24,11 @@ public class Compilador {
 		String sLida = "", auX = "";
 		ArrayList<Token> tokenList = new ArrayList<Token>();
 
-		/*
-		 * // Remove os caracteres de quebra de linha print(
-		 * "\nLimpando Caracteres de quebra de Linha:\n"); print("ANTES: " +
-		 * source); source = source.replaceAll("\\r\\n|\\r|\\n", " "); print(
-		 * "DEPOIS: " + source);
-		 */
+		// Remove os caracteres de quebra de linha
+		// print("\nLimpando Caracteres de quebra de Linha:\n");
+		// print("ANTES: " + source);
+		// source = source.replaceAll("\\r\\n|\\r|\\n", " ");
+		// print("DEPOIS: " + source);
 
 		// TODO: Buscando tokens
 		print("\n\nBUSCANDO TOKENS");
@@ -53,12 +53,13 @@ public class Compilador {
 			}
 
 			// TODO: Tratando Comentarios
-			if (sLida.equals("/")) {
+			if (sLida.equals("/") && (getChar(source, i + 1).equals("/") || getChar(source, i + 1).equals("*"))) {
 
 				// Se for possivel obter o proximo caractere
 				if (i + 1 < source.length()) {
 					// String sAfter1 recebe o caractere Posterior
 
+					// TODO: Comentario de Linha
 					if (getChar(source, i + 1).equals("/")) {
 						print("COMENTARIO DE LINHA!\n");
 						String sAfter1 = getChar(source, i);
@@ -77,30 +78,41 @@ public class Compilador {
 						// Para resolver um problema
 						i--;
 
+						// TODO: Comentario de Bloco
 					} else if (getChar(source, i + 1).equals("*")) {
 						print("COMENTARIO DE BLOCO!\n");
-						i = i + 2;
-						String sAfter1 = getChar(source, i);
+						// Tratar comentarios de bloco vazios
+						if (getChar(source, i + 2).equals("*") && getChar(source, i + 3).equals("/")) {
+							i = i + 4;
+						} else {
+							// Ja ignorados os caracteres '/' e '*'
+							i = i + 2;
+							// Obtem o proximo caractere da sequencia
+							String blz = getChar(source, i);
 
-						System.out.println(sAfter1.equals("/"));
-						System.out.println(sAfter1.equals("*"));
-						// Contador Auxiliar para comentarios
-						int aux = 0;
-						while (sAfter1.equals("*") == false || sAfter1.equals("\0") && (i < source.length())) {
-							print("AFASf");
-							// 2: numero inicial de caracteres de um comentario
-							// em bloco
-							if (aux < 2) {
-								i++;
-								sAfter1 = getChar(source, i);
+							System.out.println(blz.equals("/"));
+							System.out.println(blz.equals("*"));
+
+							// Enquanto nao encontrar um '*' ou final da string
+							while (blz.equals("*") == false || blz.equals("\0") == false && (i < source.length())) {
+								System.out.printf("i: %2d - %s\n", i, blz);
+								
+								// Le um caractere da String
+								blz = getChar(source, i);
+								
+								// Se encontrar uma '*' seguido por uma '/'
+								if (blz.equals("*") && getChar(source, i + 1).equals("/")) {
+									print("Fim do Comentario de Bloco");
+									// Incrementa na sequencia
+									i = i + 2;
+									break;
+								} else {
+									print("TO NO ELSE");
+									// print("i: " + i + " tam: " +
+									// source.length());
+									i++;
+								}
 							}
-							if (sAfter1.equals("/")) {
-								i++;
-								break;
-							}
-							sAfter1 = getChar(source, i);
-							// print("i: " + i + " tam: " + source.length());
-							i++;
 						}
 					}
 				}
