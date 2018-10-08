@@ -96,10 +96,10 @@ public class Compilador {
 							// Enquanto nao encontrar um '*' ou final da string
 							while (blz.equals("*") == false || blz.equals("\0") == false && (i < source.length())) {
 								System.out.printf("i: %2d - %s\n", i, blz);
-								
+
 								// Le um caractere da String
 								blz = getChar(source, i);
-								
+
 								// Se encontrar uma '*' seguido por uma '/'
 								if (blz.equals("*") && getChar(source, i + 1).equals("/")) {
 									print("Fim do Comentario de Bloco");
@@ -118,6 +118,7 @@ public class Compilador {
 				}
 			}
 
+			// TODO: Tratando Separadores
 			// Verifica se o caractere lido é um separador
 			else if (isSeparator(sLida)) {
 				print("É Separador!");
@@ -157,11 +158,22 @@ public class Compilador {
 				auX = "";
 			}
 
+			// TODO: Tratando Operadores
 			// Verifica se o caractere lido é um operador
 			else if (isOperador(sLida)) {
 				print("É Operador!");
 				System.out.printf("auX: [%s]\n", auX);
-
+				
+				// Tratamento para Operadores Binarios
+				// Se o proximo caractere da string de origem é operador
+				if (isOperador(getChar(source, i + 1))) {
+					// Adiciona Aux
+					tokenList.add(new Token(auX, contaLinhas));
+					// Concatena as duas Strings
+					sLida = sLida + getChar(source, i + 1);
+					i++;
+				}
+				
 				// String sBefore recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
 				// Verifica se o caractere anterior é um operador
