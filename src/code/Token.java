@@ -8,8 +8,9 @@ public class Token {
 	Token() {
 	}
 
-	Token(String nomeToken, int nLinha) {
-		this.setNomeToken(nomeToken);
+	Token(String lexema, int nLinha) {
+		this.setLexema(lexema);
+		this.setnLinha(nLinha);
 	}
 
 	public int getnLinha() {

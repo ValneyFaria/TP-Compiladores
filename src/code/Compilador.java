@@ -244,7 +244,7 @@ public class Compilador {
 	private void printTokenList(ArrayList<Token> tokenList) {
 		System.out.println("\nLISTA DE TOKENS:\n");
 		for (int i = 0; i < tokenList.size(); i++) {
-			System.out.printf("%02d - Nome: %s\n", i, tokenList.get(i).getNomeToken());
+			System.out.printf("%02d - Nome: %s\n", i, tokenList.get(i).getLexema());
 			// System.out.println(" nLinha: " + tokenList.get(i).getnLinha());
 		}
 	}
@@ -254,11 +254,11 @@ public class Compilador {
 		print("\nREMOVENDO ESPACOS VAZIOS...");
 		for (int i = 0; i < tokenList.size(); i++) {
 			// Remove Espacos
-			if (tokenList.get(i).getNomeToken().equals(" ")) {
+			if (tokenList.get(i).getLexema().equals(" ")) {
 				tokenList.remove(i);
 			}
 			// Remove Strings Vazias
-			if(tokenList.get(i).getNomeToken().length() == 0) {
+			if(tokenList.get(i).getLexema().length() == 0) {
 				tokenList.remove(i);
 			}
 		}
