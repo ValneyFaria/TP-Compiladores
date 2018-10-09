@@ -1,5 +1,6 @@
 package code;
 
+// Classe que representa um Token
 public class Token {
 	int nLinha;
 	String lexema;

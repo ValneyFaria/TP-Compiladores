@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-//Adiciona todos os caracteteres do arquivo em uma String e a retorna
+// Realiza a Leitura do Arquivo de Codigo e retorna os caracteres numa string
 public class ReadSource {
 	String Reader(String fileName) throws FileNotFoundException {
 		String content = null;
@@ -21,7 +21,6 @@ public class ReadSource {
 			System.out.println("\nARQUIVO VAZIO!\n");
 			System.exit(0);
 		}
-
 		return content;
 	}
 }

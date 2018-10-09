@@ -13,7 +13,7 @@ public class Main {
 
 		System.out.println("Estou em Main.java\n");
 
-		Lexico l = new Lexico();
+		Lexemas l = new Lexemas();
 
 		l.TabelaLexemas();
 		l.ShowLexemasTable();
@@ -23,13 +23,16 @@ public class Main {
 		// String que contem todos os caracteres do arquivo de código
 		source = rs.Reader(fileName);
 
-		Compilador c = new Compilador();
+		Lexico c = new Lexico();
 
 		// Lista que armazena os tokens lidos da entrada
 		tokens = c.findTokens(source);
-
+		
+		c.printTokenList(tokens);;
+		
 		// findErrors(tokens);
-		// makeTable(tokens); // Constroi um arquivo que armazena a tabela de
-		// simbolos
+		
+		// Constroi um arquivo que armazena a tabela de simbolos
+		// makeTable(tokens);
 	}
 }
