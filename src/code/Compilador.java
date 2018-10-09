@@ -163,22 +163,23 @@ public class Compilador {
 			else if (isOperador(sLida)) {
 				print("É Operador!");
 				System.out.printf("auX: [%s]\n", auX);
-				
+
 				// Tratamento para Operadores Binarios
 				// Se o proximo caractere da string de origem é operador
 				if (isOperador(getChar(source, i + 1))) {
 					// Adiciona Aux
+					System.out.printf("BUB: Operador (%s) Adicionado\n", auX);
 					tokenList.add(new Token(auX, contaLinhas));
 					// Concatena as duas Strings
 					sLida = sLida + getChar(source, i + 1);
 					i++;
 				}
-				
+
 				// String sBefore recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
 				// Verifica se o caractere anterior é um operador
 				if (isOperador(sBefore)) {
-					// adiciona o separador
+					// adiciona o operador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("XOW: Operador (%s) Adicionado\n", sLida);
 				}
@@ -229,7 +230,6 @@ public class Compilador {
 		// Chamada do procedimento para limpeza dos espaços na lista de tokens
 		tokenList = removeSpaces(tokenList);
 
-		System.out.println("\nTOKENS LIST:\n");
 		printTokenList(tokenList);
 
 		return tokenList;
@@ -242,6 +242,7 @@ public class Compilador {
 
 	// Exibe os Tokens na Lista de Tokens
 	private void printTokenList(ArrayList<Token> tokenList) {
+		System.out.println("\nLISTA DE TOKENS:\n");
 		for (int i = 0; i < tokenList.size(); i++) {
 			System.out.printf("%02d - Nome: %s\n", i, tokenList.get(i).getNomeToken());
 			// System.out.println(" nLinha: " + tokenList.get(i).getnLinha());
@@ -250,9 +251,14 @@ public class Compilador {
 
 	// Remove os Espaços na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
-		print("Removendo Espacos...");
+		print("\nREMOVENDO ESPACOS VAZIOS...");
 		for (int i = 0; i < tokenList.size(); i++) {
+			// Remove Espacos
 			if (tokenList.get(i).getNomeToken().equals(" ")) {
+				tokenList.remove(i);
+			}
+			// Remove Strings Vazias
+			if(tokenList.get(i).getNomeToken().length() == 0) {
 				tokenList.remove(i);
 			}
 		}
