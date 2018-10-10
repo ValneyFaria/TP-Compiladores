@@ -30,6 +30,7 @@ public class Main {
 		
 		c.printTokenList(tokens);;
 		
+		
 		// findErrors(tokens);
 		
 		// Constroi um arquivo que armazena a tabela de simbolos

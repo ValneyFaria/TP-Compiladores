@@ -1,1 +1,2 @@
-printf("%d", a);//asdas
+int a;
+char n;

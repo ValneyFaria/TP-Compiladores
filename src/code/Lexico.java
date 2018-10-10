@@ -246,7 +246,7 @@ public class Lexico {
 	void printTokenList(ArrayList<Token> tokenList) {
 		System.out.println("\nLISTA DE TOKENS:\n");
 		for (int i = 0; i < tokenList.size(); i++) {
-			System.out.printf("%02d - Nome: %s\n", i, tokenList.get(i).getLexema());
+			System.out.printf("%02d - Lex: %s\n", i, tokenList.get(i).getLexema());
 			// System.out.println(" nLinha: " + tokenList.get(i).getnLinha());
 		}
 	}
@@ -254,14 +254,58 @@ public class Lexico {
 	// Remove os Espaços na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
 		print("\nREMOVENDO ESPACOS VAZIOS...");
-		for (int i = 0; i < tokenList.size(); i++) {
+		
+		/*for (Token token : tokenList) {
+			String lexema = tokenList.get(i).getLexema();
+
+			char character = lexema.charAt(0); // This gives the character 'a'
+			int ascii = (int) character; // ascii is now 97.
+			System.out.println(ascii);
+
+			switch (lexema) {
 			// Remove Espacos
-			if (tokenList.get(i).getLexema().equals(" ")) {
+			case " ":
 				tokenList.remove(i);
+				i = i + 1;
+				break;
+			// Remove Tabulações
+			case "\t":
+				tokenList.remove(i);
+				i = i + 1;
+				break;
+			// Remove Quebras de Linha
+			case "\n":
+				tokenList.remove(i);
+				i = i + 1;
+			default:
+				break;
 			}
-			// Remove Strings Vazias
-			if (tokenList.get(i).getLexema().length() == 0) {
+		}*/
+		
+		for (int i = 0; i < tokenList.size(); i++) {
+			String lexema = tokenList.get(i).getLexema();
+
+			char character = lexema.charAt(0); // This gives the character 'a'
+			int ascii = (int) character; // ascii is now 97.
+			System.out.println(ascii);
+
+			switch (lexema) {
+			// Remove Espacos
+			case " ":
 				tokenList.remove(i);
+				i = i + 1;
+				break;
+			// Remove Tabulações
+			case "\t":
+				tokenList.remove(i);
+				i = i + 1;
+				break;
+			// Remove Quebras de Linha
+			case "\n":
+				tokenList.remove(i);
+				i = i + 1;
+			default:
+				break;
 			}
 		}
 		return tokenList;
