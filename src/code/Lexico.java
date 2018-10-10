@@ -254,56 +254,48 @@ public class Lexico {
 	// Remove os Espaços na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
 		print("\nREMOVENDO ESPACOS VAZIOS...");
-		
-		/*for (Token token : tokenList) {
-			String lexema = tokenList.get(i).getLexema();
 
-			char character = lexema.charAt(0); // This gives the character 'a'
-			int ascii = (int) character; // ascii is now 97.
-			System.out.println(ascii);
+		/*
+		 * for (Token token : tokenList) { String lexema =
+		 * tokenList.get(i).getLexema();
+		 * 
+		 * char character = lexema.charAt(0); // This gives the character 'a'
+		 * int ascii = (int) character; // ascii is now 97.
+		 * System.out.println(ascii);
+		 * 
+		 * switch (lexema) { // Remove Espacos case " ": tokenList.remove(i); i
+		 * = i + 1; break; // Remove Tabulações case "\t": tokenList.remove(i);
+		 * i = i + 1; break; // Remove Quebras de Linha case "\n":
+		 * tokenList.remove(i); i = i + 1; default: break; } }
+		 */
 
-			switch (lexema) {
-			// Remove Espacos
-			case " ":
-				tokenList.remove(i);
-				i = i + 1;
-				break;
-			// Remove Tabulações
-			case "\t":
-				tokenList.remove(i);
-				i = i + 1;
-				break;
-			// Remove Quebras de Linha
-			case "\n":
-				tokenList.remove(i);
-				i = i + 1;
-			default:
-				break;
-			}
-		}*/
-		
 		for (int i = 0; i < tokenList.size(); i++) {
 			String lexema = tokenList.get(i).getLexema();
 
-			char character = lexema.charAt(0); // This gives the character 'a'
-			int ascii = (int) character; // ascii is now 97.
-			System.out.println(ascii);
+			char character = lexema.charAt(0); // Retorna um Char
+			int ascii = (int) character; // Valor inteiro do Char
+			System.out.printf("%c: %d\n", character, ascii);
 
 			switch (lexema) {
 			// Remove Espacos
 			case " ":
 				tokenList.remove(i);
-				i = i + 1;
+				i = i - 1;
 				break;
 			// Remove Tabulações
 			case "\t":
 				tokenList.remove(i);
-				i = i + 1;
+				i = i - 1;
 				break;
 			// Remove Quebras de Linha
 			case "\n":
 				tokenList.remove(i);
-				i = i + 1;
+				i = i - 1; //  DEIXAR SEM O BREAK
+				// Remove Caractere Estranho
+			case "13":
+				tokenList.remove(i);
+				i = i - 1;
+				break;
 			default:
 				break;
 			}

@@ -1,2 +1,5 @@
 int a;
-char n;
+int v;
+int aasdasd;
+
+char ab;
