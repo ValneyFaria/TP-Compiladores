@@ -35,3 +35,5 @@ Pode ser adicionado em getChar();
 		// } else {
 		// System.out.println("CHAR LIDO: " + s);
 		// }
+		
+SINTATICO:

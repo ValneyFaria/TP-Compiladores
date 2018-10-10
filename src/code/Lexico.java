@@ -9,7 +9,7 @@ import java.util.ArrayList;
 // TODO: Tratar operadores binários
 
 // Realiza a Leitura dos caracteres da string a fim de identificar os lexemas 
-public class Lexico {
+public class Lexico extends Lexemas {
 	public int contaLinhas = 1, i = 0;
 
 	final ArrayList<String> separadores = new ArrayList<>(
@@ -217,6 +217,9 @@ public class Lexico {
 
 			// Se i é igual ao tamanho da palavra e o concanetado não é
 			// nem operador nem separador
+			// TODO: Testar possibilidade de ignorar
+			// TODO: Consultar a lista de lexemas: Se nao eh palavra reservada,
+			// é ID
 			else if (i == source.length()) {
 				// adiciona token
 				tokenList.add(new Token(auX, contaLinhas));
@@ -234,20 +237,63 @@ public class Lexico {
 		// Exibe a Lista de Tokens
 		// printTokenList(tokenList);
 
+		tokenizer(tokenList);
+
 		return tokenList;
 	}
 
 	// Atalho para printar
-	private void print(String string) {
+	public void print(String string) {
 		System.out.println(string);
 	}
 
-	// Exibe os Tokens na Lista de Tokens
-	void printTokenList(ArrayList<Token> tokenList) {
-		System.out.println("\nLISTA DE TOKENS:\n");
+	// Exibe os Lexemas na Lista de Tokens
+	void printLexemasList(ArrayList<Token> tokenList) {
+		System.out.println("\nLISTA DE LEXEMAS:\n");
 		for (int i = 0; i < tokenList.size(); i++) {
 			System.out.printf("%02d - Lex: %s\n", i, tokenList.get(i).getLexema());
 			// System.out.println(" nLinha: " + tokenList.get(i).getnLinha());
+		}
+	}
+
+	void printTokensList(ArrayList<Token> tokenList) {
+		System.out.println("\nLISTA DE TOKENS:\n");
+		print("Token    |  Num. da Linha   | Lexema");
+		print("------------------------------------");
+		for (int i = 0; i < tokenList.size(); i++) {
+			System.out.printf("%s", tokenList.get(i).getNomeToken());
+			System.out.printf("%14d", tokenList.get(i).getnLinha());
+			System.out.printf("%18s\n", tokenList.get(i).getLexema());
+		}
+	}
+
+	// Realiza a identificacao dos tokens
+	public void tokenizer(ArrayList<Token> tokenList) {
+		Lexemas lexemas = new Lexemas();
+		String nomeTok = null;
+
+		for (int i = 0; i < tokenList.size(); i++) {
+
+			// Se o Hash contem a chave
+			if (lexemas.TabelaLexemas().containsKey(tokenList.get(i).getLexema())) {
+				// Realiza o casamento com o Token
+				nomeTok = lexemas.TabelaLexemas().get(tokenList.get(i).getLexema());
+				tokenList.get(i).setNomeToken(nomeTok);
+				// Senao
+			} else {
+				// REaliza o casamento com inteiro
+				if (nomeTok.matches("[0-9] ([0-9])*")) {
+					tokenList.get(i).setNomeToken("INTEGER_CONST");
+				}
+				// REaliza o casamento com float
+				if (nomeTok.matches("[0-9] ([0-9])*.[0-9] ([0-9])*")) {
+					tokenList.get(i).setNomeToken("FLOAT_CONST");
+				}
+				// Senao, considera como um ID
+				else {
+					tokenList.get(i).setNomeToken("ID");
+				}
+			}
 		}
 	}
 
@@ -272,11 +318,15 @@ public class Lexico {
 		for (int i = 0; i < tokenList.size(); i++) {
 			String lexema = tokenList.get(i).getLexema();
 
-			char character = lexema.charAt(0); // Retorna um Char
-			int ascii = (int) character; // Valor inteiro do Char
-			System.out.printf("%c: %d\n", character, ascii);
+			// char character = lexema.charAt(0); // Retorna um Char
+			// int ascii = (int) character; // Valor inteiro do Char
+			// System.out.printf("%c: %d\n", character, ascii);
 
 			switch (lexema) {
+			case "":
+				tokenList.remove(i);
+				i = i - 1;
+				break;
 			// Remove Espacos
 			case " ":
 				tokenList.remove(i);
@@ -290,9 +340,10 @@ public class Lexico {
 			// Remove Quebras de Linha
 			case "\n":
 				tokenList.remove(i);
-				i = i - 1; //  DEIXAR SEM O BREAK
-				// Remove Caractere Estranho
-			case "13":
+				i = i - 1; // DEIXAR SEM O BREAK
+				break;
+			// Remove Caractere Estranho
+			case "\r":
 				tokenList.remove(i);
 				i = i - 1;
 				break;

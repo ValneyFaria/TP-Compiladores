@@ -28,7 +28,9 @@ public class Main {
 		// Lista que armazena os tokens lidos da entrada
 		tokens = c.findTokens(source);
 		
-		c.printTokenList(tokens);;
+		c.printLexemasList(tokens);
+		
+		c.printTokensList(tokens);
 		
 		
 		// findErrors(tokens);
