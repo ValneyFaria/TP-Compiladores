@@ -256,14 +256,23 @@ public class Lexico extends Lexemas {
 		}
 	}
 
+	private void printaSpaces(int i) {
+		while (i < 18) {
+			System.out.print(" ");
+			i++;
+		}
+	}
+
 	void printTokensList(ArrayList<Token> tokenList) {
 		System.out.println("\nLISTA DE TOKENS:\n");
 		print("Token    |  Num. da Linha   | Lexema");
 		print("------------------------------------");
 		for (int i = 0; i < tokenList.size(); i++) {
 			System.out.printf("%s", tokenList.get(i).getNomeToken());
-			System.out.printf("%14d", tokenList.get(i).getnLinha());
-			System.out.printf("%18s\n", tokenList.get(i).getLexema());
+			printaSpaces(tokenList.get(i).getNomeToken().length());
+			System.out.printf("%d", tokenList.get(i).getnLinha());
+			printaSpaces(7);
+			System.out.printf("%s\n", tokenList.get(i).getLexema());
 		}
 	}
 
@@ -279,18 +288,24 @@ public class Lexico extends Lexemas {
 				// Realiza o casamento com o Token
 				nomeTok = lexemas.TabelaLexemas().get(tokenList.get(i).getLexema());
 				tokenList.get(i).setNomeToken(nomeTok);
-				// Senao
-			} else {
-				// REaliza o casamento com inteiro
-				if (nomeTok.matches("[0-9] ([0-9])*")) {
+				System.out.println("CASOU COM " + tokenList.get(i).getNomeToken());
+			}
+			// Senao
+			else {
+				nomeTok = tokenList.get(i).getLexema();
+				// Realiza o casamento com inteiro
+				if (nomeTok.matches("[0-9]+")) {
+					print("CASOU COM INTEIRO: " + nomeTok);
 					tokenList.get(i).setNomeToken("INTEGER_CONST");
 				}
-				// REaliza o casamento com float
-				if (nomeTok.matches("[0-9] ([0-9])*.[0-9] ([0-9])*")) {
+				// Realiza o casamento com float
+				else if (nomeTok.matches("[0-9]([0-9])*.[0-9]([0-9])*")) {
+					print("CASOU COM FLOAT: " + nomeTok);
 					tokenList.get(i).setNomeToken("FLOAT_CONST");
 				}
-				// Senao, considera como um ID
+				// Considera como um ID
 				else {
+					print("CASOU COM ID");
 					tokenList.get(i).setNomeToken("ID");
 				}
 			}
@@ -299,7 +314,7 @@ public class Lexico extends Lexemas {
 
 	// Remove os Espaços na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
-		print("\nREMOVENDO ESPACOS VAZIOS...");
+		print("\nREMOVENDO ESPACOS VAZIOS...\n");
 
 		/*
 		 * for (Token token : tokenList) { String lexema =
@@ -377,6 +392,32 @@ public class Lexico extends Lexemas {
 	// Retorna o caractere de uma dada posicao numa string
 	String getChar(String source, int i) {
 		return Character.toString(source.charAt(i));
+	}
+
+	// Retorna false caso exista erro léxico
+	public boolean findErrors(ArrayList<Token> tokenList) {
+		boolean retorno = false;
+
+		print("\nBUSCANDO ERROS LÉXICOS:\n");
+
+		for (int i = 0; i < tokenList.size(); i++) {
+			String tk = tokenList.get(i).getNomeToken();
+			String lexema = tokenList.get(i).getLexema();
+
+			// Verifica se o nome de um ID é válido
+			if (tk.equals("ID")) {
+				if (lexema.matches("[A-Za-z]([A-Za-z]|[0-9]|_ )*")) {
+					// print("ACEITA!");
+				} else {
+					System.out.print("Token [" + lexema + "] não reconhecido na linha ");
+					System.out.println(tokenList.get(i).getnLinha() + ".");
+					retorno = true;
+				}
+			}
+		}
+
+		// Retorne false
+		return retorno;
 	}
 
 	public int getContaLinhas() {

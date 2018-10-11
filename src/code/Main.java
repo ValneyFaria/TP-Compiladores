@@ -27,14 +27,20 @@ public class Main {
 
 		// Lista que armazena os tokens lidos da entrada
 		tokens = c.findTokens(source);
-		
+
+		// Exibe a Lista de Lexemas
 		c.printLexemasList(tokens);
-		
+
+		// Exibe a Lista de Tokens
 		c.printTokensList(tokens);
-		
-		
-		// findErrors(tokens);
-		
+
+		boolean A = c.findErrors(tokens);
+
+		if (A) {
+			System.out.println("\nERRO LEXICO ENCONTRADO!");
+		} else {
+			System.out.println("\nNENHUM ERRO LEXICO ENCONTRADO!");
+		}
 		// Constroi um arquivo que armazena a tabela de simbolos
 		// makeTable(tokens);
 	}
