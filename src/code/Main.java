@@ -9,7 +9,7 @@ public class Main {
 		String fileName = "code.c";
 		String source = null;
 
-		ArrayList<Token> tokens = new ArrayList<Token>();
+		ArrayList<Token> tokenList = new ArrayList<Token>();
 
 		System.out.println("Estou em Main.java\n");
 
@@ -26,23 +26,23 @@ public class Main {
 		Lexico c = new Lexico();
 
 		// Lista que armazena os tokens lidos da entrada
-		tokens = c.findTokens(source);
+		tokenList = c.findTokens(source);
 
 		// Exibe a Lista de Lexemas
-		c.printLexemasList(tokens);
+		c.printLexemasList(tokenList);
 
 		// Exibe a Lista de Tokens
-		c.printTokensList(tokens);
+		c.printTokensList(tokenList);
 
-		boolean A = c.findErrors(tokens);
+		boolean A = c.findErrors(tokenList);
 
 		if (A) {
 			System.out.println("\nERRO LEXICO ENCONTRADO!");
 		} else {
 			System.out.println("\nNENHUM ERRO LEXICO ENCONTRADO!");
 		}
-		
-		Sintatico s = new Sintatico(tokens);
+
+		Sintatico s = new Sintatico(tokenList);
 		// Constroi um arquivo que armazena a tabela de simbolos
 		// makeTable(tokens);
 	}

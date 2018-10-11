@@ -406,7 +406,7 @@ public class Lexico extends Lexemas {
 
 			// Verifica se o nome de um ID é válido
 			if (tk.equals("ID")) {
-				if (lexema.matches("[A-Za-z]([A-Za-z]|[0-9]|_ )*")) {
+				if (lexema.matches("[A-Za-z_]([A-Za-z]|[0-9]|_)*")) {
 					// print("ACEITA!");
 				} else {
 					System.out.print("Token [" + lexema + "] não reconhecido na linha ");
