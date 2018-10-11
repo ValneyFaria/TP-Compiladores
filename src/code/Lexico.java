@@ -16,7 +16,7 @@ public class Lexico extends Lexemas {
 			Arrays.asList(" ", "\n", "\t", "(", "*", ")", "{", "}", ",", ";", "\r", "\""));
 
 	final ArrayList<String> operadores = new ArrayList<>(
-			Arrays.asList("+", "-", "*", "/", "=", "<", "<=", ">", ">=", "==", "!=", "&&", "||"));
+			Arrays.asList("+", "++", "-", "*", "/", "=", "<", "<=", ">", ">=", "==", "!=", "&&", "||"));
 
 	final ArrayList<String> reservadas = new ArrayList<>(
 			Arrays.asList("main", "int", "float", "if", "else", "while", "read", "print"));

@@ -41,6 +41,8 @@ public class Main {
 		} else {
 			System.out.println("\nNENHUM ERRO LEXICO ENCONTRADO!");
 		}
+		
+		Sintatico s = new Sintatico(tokens);
 		// Constroi um arquivo que armazena a tabela de simbolos
 		// makeTable(tokens);
 	}

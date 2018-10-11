@@ -37,11 +37,7 @@ public class Lexemas {
 		Lexemas.put("-", "MINUS");
 		Lexemas.put("*", "MULT");
 		Lexemas.put("/", "DIV");
-
-		/*
-		 * [A-Za-z] ([A-Za-z] | [0-9] | _ )* [0-9] ([0-9])* [0-9] ([0-9])*.[0-9]
-		 * ([0-9])*
-		 */
+		Lexemas.put("++", "PLUSPLUS");
 
 		return Lexemas;
 	}

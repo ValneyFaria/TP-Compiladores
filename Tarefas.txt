@@ -12,6 +12,10 @@ Adicionar a lista de tokens
 if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n' || ch == '\x0b') {
     // ...
 }
+		/*
+		 * [A-Za-z] ([A-Za-z] | [0-9] | _ )* [0-9] ([0-9])* [0-9] ([0-9])*.[0-9]
+		 * ([0-9])*
+		 */
 
 	/*
 	 * self.listaTokens = {'separadores':[' ', '\n', '\t', '(',
