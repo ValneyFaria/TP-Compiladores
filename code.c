@@ -4,7 +4,7 @@ int main() {
   	float 7= 7.54; //Comentario
   	a >= 9 ;
   	for(d=0 ;d<10 ;d= d+1){
-    	printf("Hello World!",d);
+    	printf(d);
   	}
   	return 0;
 }

@@ -43,6 +43,10 @@ public class Main {
 		}
 
 		Sintatico s = new Sintatico(tokenList);
+
+		// Inicia a análise sintática
+		s.Programa();
+
 		// Constroi um arquivo que armazena a tabela de simbolos
 		// makeTable(tokens);
 	}
