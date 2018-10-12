@@ -37,9 +37,9 @@ public class Main {
 		boolean A = c.findErrors(tokenList);
 
 		if (A) {
-			System.out.println("\nERRO LEXICO ENCONTRADO!");
+			System.out.println("\nERRO LEXICO ENCONTRADO!\n");
 		} else {
-			System.out.println("\nNENHUM ERRO LEXICO ENCONTRADO!");
+			System.out.println("\nNENHUM ERRO LEXICO ENCONTRADO!\n");
 		}
 
 		Sintatico s = new Sintatico(tokenList);
