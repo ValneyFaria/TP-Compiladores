@@ -265,12 +265,12 @@ public class Lexico extends Lexemas {
 
 	void printTokensList(ArrayList<Token> tokenList) {
 		System.out.println("\nLISTA DE TOKENS:\n");
-		print("Token    |  Num. da Linha   | Lexema");
+		print("Token    |   Num. da Linha   | Lexema");
 		print("------------------------------------");
 		for (int i = 0; i < tokenList.size(); i++) {
 			System.out.printf("%s", tokenList.get(i).getNomeToken());
 			printaSpaces(tokenList.get(i).getNomeToken().length());
-			System.out.printf("%d", tokenList.get(i).getnLinha());
+			System.out.printf("%3d", tokenList.get(i).getnLinha());
 			printaSpaces(7);
 			System.out.printf("%s\n", tokenList.get(i).getLexema());
 		}
