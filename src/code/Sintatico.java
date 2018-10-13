@@ -1,14 +1,19 @@
 package code;
 
+import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Sintatico {
 	int i = 0;
 	Token token = new Token();
 	ArrayList<Token> tokenList = new ArrayList<Token>();
+	HashMap<String, Simbolo> Simbolos = new HashMap<String, Simbolo>();
 
 	public Sintatico(ArrayList<Token> tokenList) {
 		this.tokenList = tokenList;
+	}
+
+	public Sintatico() {
 	}
 
 	private void imprimeErro() {
@@ -47,6 +52,7 @@ public class Sintatico {
 		// Corpo do Bloco
 		Decl_Comando();
 		match("RBRACE");
+		print("\nFIM DA ANÁLISE SEMÂNTICA!");
 	}
 
 	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
@@ -254,12 +260,13 @@ public class Sintatico {
 		}
 	}
 
+	// Implementado ACIMA
 	// ELSE Comando | Vazia
 	private void ComandoSenao() {
 		print("Ativando ComandoSenao()");
 		match("ELSE");
 		Comando();
-		// TODO: Tratar Vazia
+		// TODO: Tratar Vazias
 	}
 
 	// WHILE LBRACKET Expressao RBRACKET Comando
@@ -332,8 +339,7 @@ public class Sintatico {
 			Adicao();
 			RelacaoOpc();
 		}
-
-		// TODO: Tratar Vazia
+		// TODO: Tratar Vazias
 	}
 
 	// LT | LE | GT | GE
@@ -375,7 +381,6 @@ public class Sintatico {
 			Termo();
 			AdicaoOpc();
 		}
-
 		// TODO: Tratar vazias
 	}
 

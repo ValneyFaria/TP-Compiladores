@@ -398,7 +398,7 @@ public class Lexico extends Lexemas {
 	public boolean findErrors(ArrayList<Token> tokenList) {
 		boolean retorno = false;
 
-		print("\nBUSCANDO ERROS LÉXICOS:\n");
+		print("\nBUSCANDO ERROS LÉXICOS:");
 
 		for (int i = 0; i < tokenList.size(); i++) {
 			String tk = tokenList.get(i).getNomeToken();
