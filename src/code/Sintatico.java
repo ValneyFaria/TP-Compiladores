@@ -113,7 +113,6 @@ public class Sintatico {
 		default:
 			break;
 		}
-
 	}
 
 	// Tipo ID Decl2
