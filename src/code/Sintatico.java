@@ -44,6 +44,7 @@ public class Sintatico {
 	}
 
 	public void Programa() {
+		print("INICIANDO ANÁLISE SEMÂNTICA:\n");
 		match("INT");
 		match("MAIN");
 		match("LBRACKET");
@@ -57,7 +58,7 @@ public class Sintatico {
 
 	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
 	private void Decl_Comando() {
-		print("Ativando Decl_Comando()");
+		// print("Ativando Decl_Comando()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -123,7 +124,7 @@ public class Sintatico {
 
 	// Tipo ID Decl2
 	private void Declaracao() {
-		print("Ativando Declaracao()");
+		// print("Ativando Declaracao()");
 		Tipo();
 		// O erro ocorre aqui porque um ID era esperado e foi encontrado um
 		// INTEGER_CONST na entrada
@@ -133,7 +134,7 @@ public class Sintatico {
 
 	// COMMA ID Decl2 | PCOMMA | ATTR Expressao Decl2
 	private void Decl2() {
-		print("Ativando Decl2()");
+		// print("Ativando Decl2()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -155,7 +156,7 @@ public class Sintatico {
 
 	// INT | FLOAT
 	private void Tipo() {
-		print("Ativando Tipo()");
+		// print("Ativando Tipo()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -169,7 +170,7 @@ public class Sintatico {
 	}
 
 	private void Comando() {
-		print("Ativando Comando()");
+		// print("Ativando Comando()");
 		/*
 		 * Bloco | Atribuicao | ComandoSe | ComandoEnquanto | ComandoRead |
 		 * ComandoPrint | ComandoFor
@@ -231,7 +232,7 @@ public class Sintatico {
 
 	// LBRACE Decl_Comando RBRACE
 	private void Bloco() {
-		print("Ativando Bloco()");
+		// print("Ativando Bloco()");
 		match("LBRACE");
 		Decl_Comando();
 		match("RBRACE");
@@ -239,7 +240,7 @@ public class Sintatico {
 
 	// ID ATTR Expressao PCOMMA
 	private void Atribuicao() {
-		print("Ativando Atribuicao()");
+		// print("Ativando Atribuicao()");
 		match("ID");
 		match("ATTR");
 		Expressao();
@@ -248,7 +249,7 @@ public class Sintatico {
 
 	// IF LBRACKET Expressao RBRACKET Comando ComandoSenao
 	private void ComandoSe() {
-		print("Ativando ComandoSe()");
+		// print("Ativando ComandoSe()");
 		match("IF");
 		match("LBRACKET");
 		Expressao();
@@ -263,7 +264,7 @@ public class Sintatico {
 	// Implementado ACIMA
 	// ELSE Comando | Vazia
 	private void ComandoSenao() {
-		print("Ativando ComandoSenao()");
+		// print("Ativando ComandoSenao()");
 		match("ELSE");
 		Comando();
 		// TODO: Tratar Vazias
@@ -271,7 +272,7 @@ public class Sintatico {
 
 	// WHILE LBRACKET Expressao RBRACKET Comando
 	private void ComandoEnquanto() {
-		print("Ativando ComandoEnquanto()");
+		// print("Ativando ComandoEnquanto()");
 		match("WHILE");
 		match("LBRACKET");
 		Expressao();
@@ -281,7 +282,7 @@ public class Sintatico {
 
 	// READ ID PCOMMA
 	private void ComandoRead() {
-		print("Ativando ComandoRead()");
+		// print("Ativando ComandoRead()");
 		match("READ");
 		match("ID");
 		match("PCOMMA");
@@ -289,7 +290,7 @@ public class Sintatico {
 
 	// PRINT LBRACKET Expressao RBRACKET PCOMMA
 	private void ComandoPrint() {
-		print("Ativando ComandoPrint()");
+		// print("Ativando ComandoPrint()");
 		match("PRINT");
 		match("LBRACKET");
 		Expressao();
@@ -301,7 +302,7 @@ public class Sintatico {
 	// Comando
 
 	private void ComandoFor() {
-		print("Ativando ComandoFor()");
+		// print("Ativando ComandoFor()");
 		match("FOR");
 		match("LBRACKET");
 		AtribuicaoFor();
@@ -315,7 +316,7 @@ public class Sintatico {
 
 	// ID ATTR Expressao
 	private void AtribuicaoFor() {
-		print("Ativando AtribuicaoFor()");
+		// print("Ativando AtribuicaoFor()");
 		match("ID");
 		match("ATTR");
 		Expressao();
@@ -323,14 +324,14 @@ public class Sintatico {
 
 	// Adicao RelacaoOpc
 	private void Expressao() {
-		print("Ativando Expressao()");
+		// print("Ativando Expressao()");
 		Adicao();
 		RelacaoOpc();
 	}
 
 	// OpRel Adicao RelacaoOpc | Vazia
 	private void RelacaoOpc() {
-		print("Ativando RelacaoOpc()");
+		// print("Ativando RelacaoOpc()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -344,7 +345,7 @@ public class Sintatico {
 
 	// LT | LE | GT | GE
 	private void OpRel() {
-		print("Ativando OpRel()");
+		// print("Ativando OpRel()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -365,14 +366,14 @@ public class Sintatico {
 
 	// Termo AdicaoOpc
 	private void Adicao() {
-		print("Ativando Adicao()");
+		// print("Ativando Adicao()");
 		Termo();
 		AdicaoOpc();
 	}
 
 	// OpAdicao Termo AdicaoOpc | Vazia
 	private void AdicaoOpc() {
-		print("Ativando AdicaoOpc()");
+		// print("Ativando AdicaoOpc()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -386,7 +387,7 @@ public class Sintatico {
 
 	// PLUS | MINUS
 	private void OpAdicao() {
-		print("Ativando OpAdicao()");
+		// print("Ativando OpAdicao()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -401,14 +402,14 @@ public class Sintatico {
 
 	// Fator TermoOpc
 	private void Termo() {
-		print("Ativando Termo()");
+		// print("Ativando Termo()");
 		Fator();
 		TermoOpc();
 	}
 
 	// OpMult Fator TermoOpc | Vazia
 	private void TermoOpc() {
-		print("Ativando TermoOpc()");
+		// print("Ativando TermoOpc()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -422,7 +423,7 @@ public class Sintatico {
 
 	// MULT | DIV
 	private void OpMult() {
-		print("Ativando OpMult()");
+		// print("Ativando OpMult()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -438,7 +439,7 @@ public class Sintatico {
 
 	// ID | INTEGER_CONST | FLOAT_CONST | LBRACKET Expressao RBRACKET
 	private void Fator() {
-		print("Ativando Fator()");
+		// print("Ativando Fator()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
