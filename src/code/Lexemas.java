@@ -21,6 +21,7 @@ public class Lexemas {
 		Lexemas.put("while", "WHILE");
 		Lexemas.put("for", "FOR");
 		Lexemas.put("read", "READ");
+		Lexemas.put("print", "PRINT");
 		Lexemas.put("(", "LBRACKET");
 		Lexemas.put(")", "RBRACKET");
 		Lexemas.put("{", "LBRACE");

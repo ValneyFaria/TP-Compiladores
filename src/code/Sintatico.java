@@ -56,12 +56,7 @@ public class Sintatico {
 		String Aux = tokenList.get(i).getNomeToken();
 
 		// Declaracao -> Tipo -> INT | FLOAT
-		if (Aux.equals("INT") || Aux.equals("FLOAT")) {
-			Tipo();
-			match("ID");
-			Decl2();
-			Decl_Comando();
-		}
+
 		// Comando -> Bloco | Atribuicao | ComandoSe | ComandoEnquanto |
 		// ComandoRead | ComandoPrint | ComandoFor
 
@@ -74,48 +69,49 @@ public class Sintatico {
 		// ComandoFor -> FOR
 
 		switch (Aux) {
+		// Declaracao
+		// TODO: Tratar Vazias
+
 		case "INT":
-			Tipo();
-			match("ID");
-			Decl2();
+			Declaracao();
 			Decl_Comando();
 			break;
 		case "FLOAT":
-			Tipo();
-			match("ID");
-			Decl2();
+			Declaracao();
 			Decl_Comando();
 			break;
+
+		// Comando
 		case "LBRACE":
-			Bloco();
-			
+			Comando();
 			Decl_Comando();
 			break;
 		case "ID":
-
+			Comando();
 			Decl_Comando();
 			break;
 		case "IF":
-
+			Comando();
 			Decl_Comando();
 			break;
 		case "WHILE":
-
+			Comando();
 			Decl_Comando();
 			break;
 		case "READ":
-
+			Comando();
 			Decl_Comando();
 			break;
-		case "PRINT ":
-
+		case "PRINT":
+			Comando();
 			Decl_Comando();
 			break;
 		case "FOR":
-
+			Comando();
 			Decl_Comando();
 			break;
-
+		default:
+			break;
 		}
 
 	}
@@ -241,7 +237,7 @@ public class Sintatico {
 		print("Ativação de Atribuicao()");
 		match("ID");
 		match("ATTR");
-		E();
+		Expressao();
 		match("PCOMMA");
 	}
 
@@ -250,7 +246,7 @@ public class Sintatico {
 		print("Ativação de ComandoSe()");
 		match("IF");
 		match("LBRACKET");
-		E();
+		Expressao();
 		match("RBRACKET");
 		Comando();
 		if (tokenList.get(i).getNomeToken().equals("ELSE")) {
@@ -329,9 +325,14 @@ public class Sintatico {
 	// OpRel Adicao RelacaoOpc | Vazia
 	private void RelacaoOpc() {
 		print("Ativação de RelacaoOpc()");
-		OpRel();
-		Adicao();
-		RelacaoOpc();
+
+		String Aux = tokenList.get(i).getNomeToken();
+
+		if (Aux.equals("LT") || Aux.equals("LE") || Aux.equals("GT") || Aux.equals("GE")) {
+			OpRel();
+			Adicao();
+			RelacaoOpc();
+		}
 
 		// TODO: Tratar Vazia
 	}
@@ -367,9 +368,14 @@ public class Sintatico {
 	// OpAdicao Termo AdicaoOpc | Vazia
 	private void AdicaoOpc() {
 		print("Ativação de AdicaoOpc()");
-		OpAdicao();
-		Termo();
-		AdicaoOpc();
+
+		String Aux = tokenList.get(i).getNomeToken();
+
+		if (Aux.equals("PLUS") || Aux.equals("MINUS")) {
+			OpAdicao();
+			Termo();
+			AdicaoOpc();
+		}
 
 		// TODO: Tratar vazias
 	}
@@ -399,9 +405,14 @@ public class Sintatico {
 	// OpMult Fator TermoOpc | Vazia
 	private void TermoOpc() {
 		print("Ativação de TermoOpc()");
-		OpMult();
-		Fator();
-		TermoOpc();
+
+		String Aux = tokenList.get(i).getNomeToken();
+
+		if (Aux.equals("MULT") || Aux.equals("DIV")) {
+			OpMult();
+			Fator();
+			TermoOpc();
+		}
 		// TODO: Tratar Vazias
 	}
 
@@ -447,70 +458,37 @@ public class Sintatico {
 
 	///////////////////////////// AUXILIARES - NÂO SEI SE EU VOU USAR
 
-	private void E() {
-		print("Ativação de E()");
-
-		String aux = tokenList.get(i).getNomeToken();
-
-		if (aux.equals("ID") || aux.equals("NUM") || aux.equals("LBRACKET")) {
-			T();
-			E_();
-			if (i == tokenList.size()) {
-				print("Fim da análise sintática.");
-			}
-		} else {
-			imprimeErro();
-		}
-
-	}
-
-	private void E_() {
-		print("Ativação de E_()");
-
-		if (tokenList.get(i).getNomeToken().equals("PLUS")) {
-			match("PLUS");
-			T();
-			E_();
-		} else if (tokenList.get(i).getNomeToken().equals("MINUS")) {
-			match("MINUS");
-			T();
-			E_();
-		}
-	}
-
-	private void T() {
-		print("Ativação de T()");
-		F();
-		T_();
-	}
-
-	private void T_() {
-		print("Ativação de T_()");
-		if (tokenList.get(i).getNomeToken().equals("MULT")) {
-			match("MULT");
-			F();
-			T_();
-		} else if (tokenList.get(i).getNomeToken().equals("DIV")) {
-			match("DIV");
-			F();
-			T_();
-		}
-	}
-
-	private void F() {
-		print("Ativação de F()");
-		if (tokenList.get(i).getNomeToken().equals("LBRACKET")) {
-			match("LBRACKET");
-			E();
-			match("RBRACKET");
-		} else if (tokenList.get(i).getNomeToken().equals("ID")) {
-			match("ID");
-		} else if (tokenList.get(i).getNomeToken().equals("NUM")) {
-			match("NUM");
-		} else {
-			imprimeErro();
-		}
-	}
+	/*
+	 * private void E() { print("Ativação de E()");
+	 * 
+	 * String aux = tokenList.get(i).getNomeToken();
+	 * 
+	 * if (aux.equals("ID") || aux.equals("NUM") || aux.equals("LBRACKET")) {
+	 * T(); E_(); if (i == tokenList.size()) { print("Fim da análise sintática."
+	 * ); } } else { imprimeErro(); }
+	 * 
+	 * }
+	 * 
+	 * private void E_() { print("Ativação de E_()");
+	 * 
+	 * if (tokenList.get(i).getNomeToken().equals("PLUS")) { match("PLUS"); T();
+	 * E_(); } else if (tokenList.get(i).getNomeToken().equals("MINUS")) {
+	 * match("MINUS"); T(); E_(); } }
+	 * 
+	 * private void T() { print("Ativação de T()"); F(); T_(); }
+	 * 
+	 * private void T_() { print("Ativação de T_()"); if
+	 * (tokenList.get(i).getNomeToken().equals("MULT")) { match("MULT"); F();
+	 * T_(); } else if (tokenList.get(i).getNomeToken().equals("DIV")) {
+	 * match("DIV"); F(); T_(); } }
+	 * 
+	 * private void F() { print("Ativação de F()"); if
+	 * (tokenList.get(i).getNomeToken().equals("LBRACKET")) { match("LBRACKET");
+	 * E(); match("RBRACKET"); } else if
+	 * (tokenList.get(i).getNomeToken().equals("ID")) { match("ID"); } else if
+	 * (tokenList.get(i).getNomeToken().equals("NUM")) { match("NUM"); } else {
+	 * imprimeErro(); } }
+	 */
 
 	// Atalho para printar
 	public void print(String string) {
