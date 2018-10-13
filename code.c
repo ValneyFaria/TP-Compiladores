@@ -8,4 +8,10 @@ int main()
          i = 43;
       print(i + 1);
   }
+  
+  while(i > 2){
+  	if(a > 3){
+  		int i = 2, a;
+  	}
+  }
 }
