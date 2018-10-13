@@ -29,9 +29,10 @@ public class Sintatico {
 				token = tokenList.get(i);
 			}
 		} else {
-			System.out.print("ERRO SINTÁTICO: Token ");
+			System.out.print("\nERRO SINTÁTICO: Token ");
 			System.out.print(tokenList.get(i).getNomeToken());
 			print(" não esperado na linha " + tokenList.get(i).getnLinha());
+			print("Token Esperado: " + tok);
 			i = i - 1;
 			token = tokenList.get(i);
 		}
@@ -44,25 +45,49 @@ public class Sintatico {
 		match("RBRACKET");
 		match("LBRACE");
 		// Corpo do Bloco
-
+		Decl_Comando();
 		match("RBRACE");
 	}
 
+	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
 	private void Decl_Comando() {
 		print("Ativação de Decl_Comando()");
 
 	}
 
+	// Tipo ID Decl2
 	private void Declaracao() {
 		print("Ativação de Declaracao()");
-
+		Tipo();
+		// O erro ocorre aqui porque um ID era esperado e foi encontrado um
+		// INTEGER_CONST na entrada
+		match("ID");
+		Decl2();
 	}
 
+	// COMMA ID Decl2 | PCOMMA | ATTR Expressao Decl2
 	private void Decl2() {
 		print("Ativação de Decl2()");
+		String Aux = tokenList.get(i).getNomeToken();
 
+		switch (Aux) {
+		case "COMMA":
+			match("COMMA");
+			match("ID");
+			Decl2();
+			break;
+		case "PCOMMA":
+			match("PCOMMA");
+			break;
+		case "ATTR":
+			match("ATTR");
+			Expressao();
+			Decl2();
+			break;
+		}
 	}
 
+	// INT | FLOAT
 	private void Tipo() {
 		print("Ativação de Tipo()");
 		String Aux = tokenList.get(i).getNomeToken();
@@ -79,6 +104,10 @@ public class Sintatico {
 
 	private void Comando() {
 		print("Ativação de Comando()");
+		/*
+		 * Bloco | Atribuicao | ComandoSe | ComandoEnquanto | ComandoRead |
+		 * ComandoPrint | ComandoFor
+		 */
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -100,11 +129,15 @@ public class Sintatico {
 		}
 	}
 
+	// LBRACE Decl_Comando RBRACE
 	private void Bloco() {
 		print("Ativação de Bloco()");
-
+		match("LBRACE");
+		Decl_Comando();
+		match("RBRACE");
 	}
 
+	// ID ATTR Expressao PCOMMA
 	private void Atribuicao() {
 		print("Ativação de Atribuicao()");
 		match("ID");
@@ -112,6 +145,7 @@ public class Sintatico {
 		match("PCOMMA");
 	}
 
+	// IF LBRACKET Expressao RBRACKET Comando ComandoSenao
 	private void ComandoSe() {
 		print("Ativação de ComandoSe()");
 		match("IF");
@@ -125,84 +159,192 @@ public class Sintatico {
 		}
 	}
 
+	// ELSE Comando | Vazia
 	private void ComandoSenao() {
 		print("Ativação de ComandoSenao()");
-
+		match("ELSE");
+		Comando();
+		// TODO: Tratar Vazia
 	}
 
+	// WHILE LBRACKET Expressao RBRACKET Comando
 	private void ComandoEnquanto() {
-
+		print("Ativação de ComandoEnquanto()");
+		match("WHILE");
+		match("LBRACKET");
+		Expressao();
+		match("RBRACKET");
+		Comando();
 	}
 
+	// READ ID PCOMMA
 	private void ComandoRead() {
-
 		print("Ativação de ComandoRead()");
+		match("READ");
+		match("ID");
+		match("PCOMMA");
 	}
 
+	// PRINT LBRACKET Expressao RBRACKET PCOMMA
 	private void ComandoPrint() {
-
 		print("Ativação de ComandoPrint()");
+		match("PRINT");
+		match("LBRACKET");
+		Expressao();
+		match("RBRACKET");
+		match("PCOMMA");
 	}
 
+	// FOR LBRACKET AtribuicaoFor PCOMMA Expressao PCOMMA AtribuicaoFor RBRACKET Comando
+		 
 	private void ComandoFor() {
-
 		print("Ativação de ComandoFor()");
+		match("FOR");
+		match("LBRACKET");
+		AtribuicaoFor();
+		match("PCOMMA");
+		Expressao();
+		match("PCOMMA");
+		AtribuicaoFor();
+		match("RBRACKET");
+		Comando();
 	}
 
+	// ID ATTR Expressao
 	private void AtribuicaoFor() {
-
 		print("Ativação de AtribuicaoFor()");
+		match("ID");
+		match("ATTR");
+		Expressao();
 	}
 
+	// Adicao RelacaoOpc
 	private void Expressao() {
-
 		print("Ativação de Expressao()");
+		Adicao();
+		RelacaoOpc();
 	}
 
+	// OpRel Adicao RelacaoOpc | Vazia
 	private void RelacaoOpc() {
-
 		print("Ativação de RelacaoOpc()");
+		OpRel();
+		Adicao();
+		RelacaoOpc();
+
+		// TODO: Tratar Vazia
 	}
 
+	// LT | LE | GT | GE
 	private void OpRel() {
-
 		print("Ativação de OpRel()");
+		String Aux = tokenList.get(i).getNomeToken();
+
+		switch (Aux) {
+		case "LT":
+			match("LT");
+			break;
+		case "LE":
+			match("LE");
+			break;
+		case "GT":
+			match("GT");
+			break;
+		case "GE":
+			match("GE");
+			break;
+		}
 	}
 
+	// Termo AdicaoOpc
 	private void Adicao() {
 		print("Ativação de Adicao()");
-
+		Termo();
+		AdicaoOpc();
 	}
 
+	// OpAdicao Termo AdicaoOpc | Vazia
 	private void AdicaoOpc() {
 		print("Ativação de AdicaoOpc()");
+		OpAdicao();
+		Termo();
+		AdicaoOpc();
 
+		// TODO: Tratar vazias
 	}
 
+	// PLUS | MINUS
 	private void OpAdicao() {
 		print("Ativação de OpAdicao()");
+		String Aux = tokenList.get(i).getNomeToken();
 
+		switch (Aux) {
+		case "PLUS":
+			match("PLUS");
+			break;
+		case "MINUS":
+			match("MINUS");
+			break;
+		}
 	}
 
+	// Fator TermoOpc
 	private void Termo() {
 		print("Ativação de Termo()");
-
+		Fator();
+		TermoOpc();
 	}
 
+	// OpMult Fator TermoOpc | Vazia
 	private void TermoOpc() {
 		print("Ativação de TermoOpc()");
-
+		OpMult();
+		Fator();
+		TermoOpc();
+		// TODO: Tratar Vazias
 	}
 
+	// MULT | DIV
 	private void OpMult() {
 		print("Ativação de OpMult()");
 
+		String Aux = tokenList.get(i).getNomeToken();
+
+		switch (Aux) {
+		case "MULT":
+			match("MULT");
+			break;
+		case "DIV":
+			match("DIV");
+			break;
+		}
 	}
 
+	// ID | INTEGER_CONST | FLOAT_CONST | LBRACKET Expressao RBRACKET
 	private void Fator() {
 		print("Ativação de Fator()");
 
+		String Aux = tokenList.get(i).getNomeToken();
+
+		switch (Aux) {
+		case "ID":
+			match("ID");
+			break;
+		case "INTEGER_CONST":
+			match("INTEGER_CONST");
+			break;
+		case "FLOAT_CONST":
+			match("FLOAT_CONST");
+			break;
+		case "LBRACKET":
+			match("LBRACKET");
+			Expressao();
+			match("RBRACKET");
+			break;
+		}
 	}
+
+	///////////////////////////// AUXILIARES - NÂO SEI SE EU VOU USAR
 
 	private void E() {
 		print("Ativação de E()");
