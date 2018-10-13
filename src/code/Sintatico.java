@@ -51,7 +51,7 @@ public class Sintatico {
 
 	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
 	private void Decl_Comando() {
-		print("Ativação de Decl_Comando()");
+		print("Ativando Decl_Comando()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -118,7 +118,7 @@ public class Sintatico {
 
 	// Tipo ID Decl2
 	private void Declaracao() {
-		print("Ativação de Declaracao()");
+		print("Ativando Declaracao()");
 		Tipo();
 		// O erro ocorre aqui porque um ID era esperado e foi encontrado um
 		// INTEGER_CONST na entrada
@@ -128,7 +128,7 @@ public class Sintatico {
 
 	// COMMA ID Decl2 | PCOMMA | ATTR Expressao Decl2
 	private void Decl2() {
-		print("Ativação de Decl2()");
+		print("Ativando Decl2()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -150,7 +150,7 @@ public class Sintatico {
 
 	// INT | FLOAT
 	private void Tipo() {
-		print("Ativação de Tipo()");
+		print("Ativando Tipo()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -164,7 +164,7 @@ public class Sintatico {
 	}
 
 	private void Comando() {
-		print("Ativação de Comando()");
+		print("Ativando Comando()");
 		/*
 		 * Bloco | Atribuicao | ComandoSe | ComandoEnquanto | ComandoRead |
 		 * ComandoPrint | ComandoFor
@@ -226,7 +226,7 @@ public class Sintatico {
 
 	// LBRACE Decl_Comando RBRACE
 	private void Bloco() {
-		print("Ativação de Bloco()");
+		print("Ativando Bloco()");
 		match("LBRACE");
 		Decl_Comando();
 		match("RBRACE");
@@ -234,7 +234,7 @@ public class Sintatico {
 
 	// ID ATTR Expressao PCOMMA
 	private void Atribuicao() {
-		print("Ativação de Atribuicao()");
+		print("Ativando Atribuicao()");
 		match("ID");
 		match("ATTR");
 		Expressao();
@@ -243,7 +243,7 @@ public class Sintatico {
 
 	// IF LBRACKET Expressao RBRACKET Comando ComandoSenao
 	private void ComandoSe() {
-		print("Ativação de ComandoSe()");
+		print("Ativando ComandoSe()");
 		match("IF");
 		match("LBRACKET");
 		Expressao();
@@ -257,7 +257,7 @@ public class Sintatico {
 
 	// ELSE Comando | Vazia
 	private void ComandoSenao() {
-		print("Ativação de ComandoSenao()");
+		print("Ativando ComandoSenao()");
 		match("ELSE");
 		Comando();
 		// TODO: Tratar Vazia
@@ -265,7 +265,7 @@ public class Sintatico {
 
 	// WHILE LBRACKET Expressao RBRACKET Comando
 	private void ComandoEnquanto() {
-		print("Ativação de ComandoEnquanto()");
+		print("Ativando ComandoEnquanto()");
 		match("WHILE");
 		match("LBRACKET");
 		Expressao();
@@ -275,7 +275,7 @@ public class Sintatico {
 
 	// READ ID PCOMMA
 	private void ComandoRead() {
-		print("Ativação de ComandoRead()");
+		print("Ativando ComandoRead()");
 		match("READ");
 		match("ID");
 		match("PCOMMA");
@@ -283,7 +283,7 @@ public class Sintatico {
 
 	// PRINT LBRACKET Expressao RBRACKET PCOMMA
 	private void ComandoPrint() {
-		print("Ativação de ComandoPrint()");
+		print("Ativando ComandoPrint()");
 		match("PRINT");
 		match("LBRACKET");
 		Expressao();
@@ -295,7 +295,7 @@ public class Sintatico {
 	// Comando
 
 	private void ComandoFor() {
-		print("Ativação de ComandoFor()");
+		print("Ativando ComandoFor()");
 		match("FOR");
 		match("LBRACKET");
 		AtribuicaoFor();
@@ -309,7 +309,7 @@ public class Sintatico {
 
 	// ID ATTR Expressao
 	private void AtribuicaoFor() {
-		print("Ativação de AtribuicaoFor()");
+		print("Ativando AtribuicaoFor()");
 		match("ID");
 		match("ATTR");
 		Expressao();
@@ -317,14 +317,14 @@ public class Sintatico {
 
 	// Adicao RelacaoOpc
 	private void Expressao() {
-		print("Ativação de Expressao()");
+		print("Ativando Expressao()");
 		Adicao();
 		RelacaoOpc();
 	}
 
 	// OpRel Adicao RelacaoOpc | Vazia
 	private void RelacaoOpc() {
-		print("Ativação de RelacaoOpc()");
+		print("Ativando RelacaoOpc()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -339,7 +339,7 @@ public class Sintatico {
 
 	// LT | LE | GT | GE
 	private void OpRel() {
-		print("Ativação de OpRel()");
+		print("Ativando OpRel()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -360,14 +360,14 @@ public class Sintatico {
 
 	// Termo AdicaoOpc
 	private void Adicao() {
-		print("Ativação de Adicao()");
+		print("Ativando Adicao()");
 		Termo();
 		AdicaoOpc();
 	}
 
 	// OpAdicao Termo AdicaoOpc | Vazia
 	private void AdicaoOpc() {
-		print("Ativação de AdicaoOpc()");
+		print("Ativando AdicaoOpc()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -382,7 +382,7 @@ public class Sintatico {
 
 	// PLUS | MINUS
 	private void OpAdicao() {
-		print("Ativação de OpAdicao()");
+		print("Ativando OpAdicao()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
@@ -397,14 +397,14 @@ public class Sintatico {
 
 	// Fator TermoOpc
 	private void Termo() {
-		print("Ativação de Termo()");
+		print("Ativando Termo()");
 		Fator();
 		TermoOpc();
 	}
 
 	// OpMult Fator TermoOpc | Vazia
 	private void TermoOpc() {
-		print("Ativação de TermoOpc()");
+		print("Ativando TermoOpc()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -418,7 +418,7 @@ public class Sintatico {
 
 	// MULT | DIV
 	private void OpMult() {
-		print("Ativação de OpMult()");
+		print("Ativando OpMult()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -434,7 +434,7 @@ public class Sintatico {
 
 	// ID | INTEGER_CONST | FLOAT_CONST | LBRACKET Expressao RBRACKET
 	private void Fator() {
-		print("Ativação de Fator()");
+		print("Ativando Fator()");
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -455,40 +455,6 @@ public class Sintatico {
 			break;
 		}
 	}
-
-	///////////////////////////// AUXILIARES - NÂO SEI SE EU VOU USAR
-
-	/*
-	 * private void E() { print("Ativação de E()");
-	 * 
-	 * String aux = tokenList.get(i).getNomeToken();
-	 * 
-	 * if (aux.equals("ID") || aux.equals("NUM") || aux.equals("LBRACKET")) {
-	 * T(); E_(); if (i == tokenList.size()) { print("Fim da análise sintática."
-	 * ); } } else { imprimeErro(); }
-	 * 
-	 * }
-	 * 
-	 * private void E_() { print("Ativação de E_()");
-	 * 
-	 * if (tokenList.get(i).getNomeToken().equals("PLUS")) { match("PLUS"); T();
-	 * E_(); } else if (tokenList.get(i).getNomeToken().equals("MINUS")) {
-	 * match("MINUS"); T(); E_(); } }
-	 * 
-	 * private void T() { print("Ativação de T()"); F(); T_(); }
-	 * 
-	 * private void T_() { print("Ativação de T_()"); if
-	 * (tokenList.get(i).getNomeToken().equals("MULT")) { match("MULT"); F();
-	 * T_(); } else if (tokenList.get(i).getNomeToken().equals("DIV")) {
-	 * match("DIV"); F(); T_(); } }
-	 * 
-	 * private void F() { print("Ativação de F()"); if
-	 * (tokenList.get(i).getNomeToken().equals("LBRACKET")) { match("LBRACKET");
-	 * E(); match("RBRACKET"); } else if
-	 * (tokenList.get(i).getNomeToken().equals("ID")) { match("ID"); } else if
-	 * (tokenList.get(i).getNomeToken().equals("NUM")) { match("NUM"); } else {
-	 * imprimeErro(); } }
-	 */
 
 	// Atalho para printar
 	public void print(String string) {

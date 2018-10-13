@@ -1,14 +1,11 @@
-int main(){
-   int b, c, d, e, t;
-   float x = 2 / (3 * 5);
-   a = (67 - 233) / e;
-   float c = 2.456 + 343.5 * 13.15;
-   if(a == c)
-   {
-      t = 7;
-      read(i);
-      print(a + c);
-   }
-   else
-      t = 1;
+int main()
+{
+  int i = 0, j, k = 2;
+  for (j = 0; j < 10; j = j + 1)
+  {
+      read i;
+      if (i >= 5)
+         i = 43;
+      print(i + 1);
+  }
 }
