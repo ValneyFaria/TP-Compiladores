@@ -53,6 +53,71 @@ public class Sintatico {
 	private void Decl_Comando() {
 		print("Ativação de Decl_Comando()");
 
+		String Aux = tokenList.get(i).getNomeToken();
+
+		// Declaracao -> Tipo -> INT | FLOAT
+		if (Aux.equals("INT") || Aux.equals("FLOAT")) {
+			Tipo();
+			match("ID");
+			Decl2();
+			Decl_Comando();
+		}
+		// Comando -> Bloco | Atribuicao | ComandoSe | ComandoEnquanto |
+		// ComandoRead | ComandoPrint | ComandoFor
+
+		// Bloco -> LBRACE
+		// Atribuicao -> ID
+		// ComandoSe -> IF
+		// ComandoEnquanto -> WHILE
+		// ComandoRead -> READ
+		// ComandoPrint -> PRINT
+		// ComandoFor -> FOR
+
+		switch (Aux) {
+		case "INT":
+			Tipo();
+			match("ID");
+			Decl2();
+			Decl_Comando();
+			break;
+		case "FLOAT":
+			Tipo();
+			match("ID");
+			Decl2();
+			Decl_Comando();
+			break;
+		case "LBRACE":
+			Bloco();
+			
+			Decl_Comando();
+			break;
+		case "ID":
+
+			Decl_Comando();
+			break;
+		case "IF":
+
+			Decl_Comando();
+			break;
+		case "WHILE":
+
+			Decl_Comando();
+			break;
+		case "READ":
+
+			Decl_Comando();
+			break;
+		case "PRINT ":
+
+			Decl_Comando();
+			break;
+		case "FOR":
+
+			Decl_Comando();
+			break;
+
+		}
+
 	}
 
 	// Tipo ID Decl2
@@ -111,6 +176,13 @@ public class Sintatico {
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
+		case "LBRACE":
+			Bloco();
+			Comando();
+			if (i == tokenList.size()) {
+				return;
+			}
+			break;
 		case "ID":
 			Atribuicao();
 			Comando();
@@ -118,9 +190,36 @@ public class Sintatico {
 				return;
 			}
 			break;
-
 		case "IF":
 			ComandoSe();
+			Comando();
+			if (i == tokenList.size()) {
+				return;
+			}
+			break;
+		case "WHILE":
+			ComandoEnquanto();
+			Comando();
+			if (i == tokenList.size()) {
+				return;
+			}
+			break;
+		case "READ":
+			ComandoRead();
+			Comando();
+			if (i == tokenList.size()) {
+				return;
+			}
+			break;
+		case "PRINT":
+			ComandoPrint();
+			Comando();
+			if (i == tokenList.size()) {
+				return;
+			}
+			break;
+		case "FOR":
+			ComandoFor();
 			Comando();
 			if (i == tokenList.size()) {
 				return;
@@ -141,6 +240,7 @@ public class Sintatico {
 	private void Atribuicao() {
 		print("Ativação de Atribuicao()");
 		match("ID");
+		match("ATTR");
 		E();
 		match("PCOMMA");
 	}
@@ -195,8 +295,9 @@ public class Sintatico {
 		match("PCOMMA");
 	}
 
-	// FOR LBRACKET AtribuicaoFor PCOMMA Expressao PCOMMA AtribuicaoFor RBRACKET Comando
-		 
+	// FOR LBRACKET AtribuicaoFor PCOMMA Expressao PCOMMA AtribuicaoFor RBRACKET
+	// Comando
+
 	private void ComandoFor() {
 		print("Ativação de ComandoFor()");
 		match("FOR");
