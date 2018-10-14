@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 // TODO: Tratar os "\n" 				DONE
 // TODO: Tratar aspas 					DONE
-// TODO: Tratar Comentarios			DONE
+// TODO: Tratar Comentarios				DONE
 // TODO: Tratar operadores binarios
 
 // Realiza a Leitura dos caracteres da string a fim de identificar os lexemas 
