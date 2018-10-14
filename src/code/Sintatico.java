@@ -136,12 +136,14 @@ public class Sintatico {
 	// Tipo ID Decl2
 	private void Declaracao() {
 		// print("Ativando Declaracao()");
+		print(simbolo.getTipo());
 		Tipo();
-		// O erro ocorre aqui porque um ID era esperado e foi encontrado um
-		// INTEGER_CONST na entrada
-		match("ID");
+		print(simbolo.getTipo());
 		// Adiciona o lexema atual ao simbolo antes de chamar Decl2()
-		simbolo.setLexema(tokenList.get(i - 1).getLexema());
+		simbolo.setLexema(tokenList.get(i).getLexema());
+		System.out.println("LEXEMA:" + simbolo.getLexema());
+		match("ID");
+
 		Decl2();
 	}
 
