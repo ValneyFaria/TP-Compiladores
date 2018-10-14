@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 // Contem a Tabela de Lexemas e Tokens
 class Lexemas {
 	// Tabela de Lexemas
-	final HashMap<String, String> Lexemas = new HashMap<String, String>();
+	private final HashMap<String, String> Lexemas = new HashMap<>();
 
 	// Retorna a Tabela de Lexemas
 	HashMap<String, String> TabelaLexemas() {

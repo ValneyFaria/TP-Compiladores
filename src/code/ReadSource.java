@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 // Realiza a Leitura do Arquivo de Codigo e retorna os caracteres numa string
 class ReadSource {
-	String Reader(String fileName) throws FileNotFoundException {
+	String Reader(String fileName) {
 		String content = null;
 
 		try {

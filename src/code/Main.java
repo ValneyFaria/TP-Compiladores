@@ -5,11 +5,11 @@ import java.io.FileNotFoundException;
 
 class Main {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		String fileName = "code.c";
-		String source = null;
+		String source;
 
-		ArrayList<Token> tokenList = new ArrayList<Token>();
+		ArrayList<Token> tokenList;
 
 		System.out.println("Estou em Main.java\n");
 

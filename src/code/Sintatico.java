@@ -8,8 +8,8 @@ import java.util.ArrayList;
 class Sintatico {
 	private int i = 0;
 	private Token token = new Token();
-	private ArrayList<Token> tokenList = new ArrayList<Token>();
-	private HashMap<String, Simbolo> Simbolos = new HashMap<String, Simbolo>();
+	private ArrayList<Token> tokenList = new ArrayList<>();
+	private HashMap<String, Simbolo> Simbolos = new HashMap<>();
 
 	public Sintatico(ArrayList<Token> tokenList) {
 		this.tokenList = tokenList;
@@ -19,7 +19,7 @@ class Sintatico {
 	}
 
 	private void imprimeErro() {
-		print("Erro sint�tico. Token n�o esperado na entrada.");
+		print("Erro sintatico. Token nao esperado na entrada.");
 		i = i - 1;
 		// Continua a an�lise para verificar outros erros
 		i = i + 1;
@@ -36,9 +36,9 @@ class Sintatico {
 				token = tokenList.get(i);
 			}
 		} else {
-			System.out.print("\nERRO SINT�TICO: Token ");
+			System.out.print("\nERRO SINTATICO: Token ");
 			System.out.print(tokenList.get(i).getNomeToken());
-			print(" n�o esperado na linha " + tokenList.get(i).getnLinha());
+			print(" nao esperado na linha " + tokenList.get(i).getnLinha());
 			print("Token Esperado: " + tok);
 			i = i - 1;
 			token = tokenList.get(i);
@@ -153,7 +153,7 @@ class Sintatico {
 
 		simbolo.setLexema(tokenList.get(i).getLexema());
 
-		// TODO: Inser��o do s�mbolo no HashMap
+		// TODO: Insercao do simbolo no HashMap
 		switch (Aux) {
 		case "COMMA":
 			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
