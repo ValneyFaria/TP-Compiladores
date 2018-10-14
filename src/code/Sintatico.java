@@ -3,6 +3,9 @@ package code;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 class Sintatico {
@@ -46,7 +49,7 @@ class Sintatico {
 		}
 	}
 
-	public void Programa() {
+	public void Programa() throws IOException {
 		print("INICIANDO ANALISE SEMANTICA:\n");
 		match("INT");
 		match("MAIN");
@@ -59,6 +62,7 @@ class Sintatico {
 		print("\nFIM DA ANALISE SEMANTICA!");
 
 		ImprimeListaSimbolos();
+		WriteTableToFile();
 	}
 
 	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
@@ -513,5 +517,25 @@ class Sintatico {
 			System.out.print(" ");
 			i++;
 		}
+	}
+
+	public void WriteTableToFile() throws IOException {
+		/* Exibe conteudo usando Iterator */
+		String fileName = "Tabela de Simbolos.txt";
+		Set<Entry<String, Simbolo>> set = SymbolTable.entrySet();
+		FileWriter fw = new FileWriter(fileName, true);
+
+		BufferedWriter writer = new BufferedWriter(fw);
+
+		for (Entry<String, Simbolo> mentry : set) {
+			writer.write(mentry.getKey());
+			writer.append(' ');
+			writer.write(mentry.getValue().getTipo());
+			writer.append('\n');
+		}
+
+		writer.append(' ');
+
+		writer.close();
 	}
 }
