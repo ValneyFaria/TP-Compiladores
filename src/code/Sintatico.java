@@ -88,13 +88,11 @@ public class Sintatico {
 		// TODO: Adiciona o Tipo e a linha ao simbolo
 		case "INT":
 			simbolo.setTipo("INT");
-			simbolo.setnLinha(tokenList.get(i).getnLinha());
 			Declaracao();
 			Decl_Comando();
 			break;
 		case "FLOAT":
 			simbolo.setTipo("FLOAT");
-			simbolo.setnLinha(tokenList.get(i).getnLinha());
 			Declaracao();
 			Decl_Comando();
 			break;
@@ -142,6 +140,7 @@ public class Sintatico {
 		// Adiciona o lexema atual ao simbolo antes de chamar Decl2()
 		simbolo.setLexema(tokenList.get(i).getLexema());
 		System.out.println("LEXEMA:" + simbolo.getLexema());
+		Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 		match("ID");
 
 		Decl2();
@@ -492,14 +491,13 @@ public class Sintatico {
 		Iterator<Entry<String, Simbolo>> iterator = set.iterator();
 		while (iterator.hasNext()) {
 			Entry<String, Simbolo> mentry = iterator.next();
-			System.out.print("CHAVE: \"" + mentry.getKey() + "\"");
+			System.out.print("CHAVE (lex.): \"" + mentry.getKey() + "\"");
 			printaSpaces(mentry.getKey().length());
-			System.out.print(" VALOR:");
+			System.out.print(" VALOR (obj. lex.):");
 			printaSpaces(2);
 
 			System.out.println(mentry.getValue().getLexema());
 		}
-
 	}
 
 	private void printaSpaces(int i) {
