@@ -1,9 +1,9 @@
 package code;
 
-public class Simbolo {
-	int nLinha;
-	String tipo;
-	String lexema;
+class Simbolo {
+	private int nLinha;
+	private String tipo;
+	private String lexema;
 
 	public int getnLinha() {
 		return nLinha;

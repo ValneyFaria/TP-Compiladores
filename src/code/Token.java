@@ -1,10 +1,10 @@
 package code;
 
 // Classe que representa um Token
-public class Token {
-	int nLinha;
-	String lexema;
-	String nomeToken;
+class Token {
+	private int nLinha;
+	private String lexema;
+	private String nomeToken;
 
 	Token() {
 	}
@@ -18,7 +18,7 @@ public class Token {
 		return nLinha;
 	}
 
-	public void setnLinha(int nLinha) {
+	private void setnLinha(int nLinha) {
 		this.nLinha = nLinha;
 	}
 
@@ -26,7 +26,7 @@ public class Token {
 		return lexema;
 	}
 
-	public void setLexema(String lexema) {
+	private void setLexema(String lexema) {
 		this.lexema = lexema;
 	}
 

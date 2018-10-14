@@ -1,17 +1,15 @@
 package code;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
+import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.ArrayList;
 
-public class Sintatico {
-	int i = 0;
-	Token token = new Token();
-	Simbolo simbolo = new Simbolo();
-	ArrayList<Token> tokenList = new ArrayList<Token>();
-	HashMap<String, Simbolo> Simbolos = new HashMap<String, Simbolo>();
+class Sintatico {
+	private int i = 0;
+	private Token token = new Token();
+	private ArrayList<Token> tokenList = new ArrayList<Token>();
+	private HashMap<String, Simbolo> Simbolos = new HashMap<String, Simbolo>();
 
 	public Sintatico(ArrayList<Token> tokenList) {
 		this.tokenList = tokenList;
@@ -21,9 +19,9 @@ public class Sintatico {
 	}
 
 	private void imprimeErro() {
-		print("Erro sintático. Token não esperado na entrada.");
+		print("Erro sintï¿½tico. Token nï¿½o esperado na entrada.");
 		i = i - 1;
-		// Continua a análise para verificar outros erros
+		// Continua a anï¿½lise para verificar outros erros
 		i = i + 1;
 		token = tokenList.get(i);
 	}
@@ -38,9 +36,9 @@ public class Sintatico {
 				token = tokenList.get(i);
 			}
 		} else {
-			System.out.print("\nERRO SINTÁTICO: Token ");
+			System.out.print("\nERRO SINTï¿½TICO: Token ");
 			System.out.print(tokenList.get(i).getNomeToken());
-			print(" não esperado na linha " + tokenList.get(i).getnLinha());
+			print(" nï¿½o esperado na linha " + tokenList.get(i).getnLinha());
 			print("Token Esperado: " + tok);
 			i = i - 1;
 			token = tokenList.get(i);
@@ -48,7 +46,7 @@ public class Sintatico {
 	}
 
 	public void Programa() {
-		print("INICIANDO ANÁLISE SEMÂNTICA:\n");
+		print("INICIANDO ANALISE SEMANTICA:\n");
 		match("INT");
 		match("MAIN");
 		match("LBRACKET");
@@ -57,7 +55,7 @@ public class Sintatico {
 		// Corpo do Bloco
 		Decl_Comando();
 		match("RBRACE");
-		print("\nFIM DA ANÁLISE SEMÂNTICA!");
+		print("\nFIM DA ANALISE SEMANTICA!");
 
 		ImprimeListaSimbolos();
 	}
@@ -65,6 +63,8 @@ public class Sintatico {
 	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
 	private void Decl_Comando() {
 		// print("Ativando Decl_Comando()");
+
+		Simbolo simbolo = new Simbolo();
 
 		String Aux = tokenList.get(i).getNomeToken();
 
@@ -88,12 +88,12 @@ public class Sintatico {
 		// TODO: Adiciona o Tipo e a linha ao simbolo
 		case "INT":
 			simbolo.setTipo("INT");
-			Declaracao();
+			Declaracao(simbolo);
 			Decl_Comando();
 			break;
 		case "FLOAT":
 			simbolo.setTipo("FLOAT");
-			Declaracao();
+			Declaracao(simbolo);
 			Decl_Comando();
 			break;
 
@@ -132,7 +132,7 @@ public class Sintatico {
 	}
 
 	// Tipo ID Decl2
-	private void Declaracao() {
+	private void Declaracao(Simbolo simbolo) {
 		// print("Ativando Declaracao()");
 		print(simbolo.getTipo());
 		Tipo();
@@ -143,21 +143,23 @@ public class Sintatico {
 		Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 		match("ID");
 
-		Decl2();
+		Decl2(simbolo);
 	}
 
 	// COMMA ID Decl2 | PCOMMA | ATTR Expressao Decl2
-	private void Decl2() {
+	private void Decl2(Simbolo simbolo) {
 		// print("Ativando Decl2()");
 		String Aux = tokenList.get(i).getNomeToken();
 
-		// TODO: Inserção do símbolo no HashMap
+		simbolo.setLexema(tokenList.get(i).getLexema());
+
+		// TODO: Inserï¿½ï¿½o do sï¿½mbolo no HashMap
 		switch (Aux) {
 		case "COMMA":
 			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 			match("COMMA");
 			match("ID");
-			Decl2();
+			Decl2(simbolo);
 			break;
 		case "PCOMMA":
 			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
@@ -166,7 +168,7 @@ public class Sintatico {
 		case "ATTR":
 			match("ATTR");
 			Expressao();
-			Decl2();
+			Decl2(simbolo);
 			break;
 		}
 	}
@@ -479,7 +481,7 @@ public class Sintatico {
 	}
 
 	// Atalho para printar
-	public void print(String string) {
+	private void print(String string) {
 		System.out.println(string);
 	}
 
@@ -488,9 +490,7 @@ public class Sintatico {
 
 		/* Exibe conteudo usando Iterator */
 		Set<Entry<String, Simbolo>> set = Simbolos.entrySet();
-		Iterator<Entry<String, Simbolo>> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			Entry<String, Simbolo> mentry = iterator.next();
+		for (Entry<String, Simbolo> mentry : set) {
 			System.out.print("CHAVE (lex.): \"" + mentry.getKey() + "\"");
 			printaSpaces(mentry.getKey().length());
 			System.out.print(" VALOR (obj. lex.):");

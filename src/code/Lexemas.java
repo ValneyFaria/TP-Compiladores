@@ -2,11 +2,10 @@ package code;
 
 import java.util.Set;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map.Entry;
 
 // Contem a Tabela de Lexemas e Tokens
-public class Lexemas {
+class Lexemas {
 	// Tabela de Lexemas
 	final HashMap<String, String> Lexemas = new HashMap<String, String>();
 
@@ -46,9 +45,7 @@ public class Lexemas {
 	void ShowLexemasTable() {
 		/* Exibe conteudo usando Iterator */
 		Set<Entry<String, String>> set = Lexemas.entrySet();
-		Iterator<Entry<String, String>> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			Entry<String, String> mentry = iterator.next();
+		for (Entry<String, String> mentry : set) {
 			System.out.print("CHAVE: \"" + mentry.getKey() + "\"");
 			printaSpaces(mentry.getKey().length());
 			System.out.print(" VALOR:");

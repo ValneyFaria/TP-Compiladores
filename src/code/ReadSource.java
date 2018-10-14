@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 // Realiza a Leitura do Arquivo de Codigo e retorna os caracteres numa string
-public class ReadSource {
+class ReadSource {
 	String Reader(String fileName) throws FileNotFoundException {
 		String content = null;
 

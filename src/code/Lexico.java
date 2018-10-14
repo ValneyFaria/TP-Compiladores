@@ -5,17 +5,18 @@ import java.util.ArrayList;
 
 // TODO: Tratar os "\n" 				DONE
 // TODO: Tratar aspas 					DONE
-// TODO: Tratar Comentários				DONE
-// TODO: Tratar operadores binários
+// TODO: Tratar Comentarios			DONE
+// TODO: Tratar operadores binarios
 
 // Realiza a Leitura dos caracteres da string a fim de identificar os lexemas 
-public class Lexico extends Lexemas {
-	public int contaLinhas = 1, i = 0;
+class Lexico extends Lexemas {
+	private int contaLinhas = 1;
+	private int i = 0;
 
-	final ArrayList<String> separadores = new ArrayList<>(
+	private final ArrayList<String> separadores = new ArrayList<>(
 			Arrays.asList(" ", "\n", "\t", "(", "*", ")", "{", "}", ",", ";", "\r", "\""));
 
-	final ArrayList<String> operadores = new ArrayList<>(
+	private final ArrayList<String> operadores = new ArrayList<>(
 			Arrays.asList("+", "++", "-", "*", "/", "=", "<", "<=", ">", ">=", "==", "!=", "&&", "||"));
 
 	final ArrayList<String> reservadas = new ArrayList<>(
@@ -33,7 +34,7 @@ public class Lexico extends Lexemas {
 
 		// TODO: Buscando tokens
 		print("\n\nBUSCANDO TOKENS");
-		// Enquanto todos os caracteres não forem lidos
+		// Enquanto todos os caracteres nao forem lidos
 		while (i < source.length()) {
 			// Le o caractere na posicao
 			sLida = getChar(source, i);
@@ -45,7 +46,7 @@ public class Lexico extends Lexemas {
 				contaLinhas++;
 			}
 
-			// Se o caractere não é Separador nem operador
+			// Se o caractere nao eh Separador nem operador
 			if (!isSeparator(sLida) && !isOperador(sLida)) {
 				print("Nem Operador, nem Separador.\nConcatenando...");
 				// Concatena o caractere ao final da string auxiliar
@@ -65,8 +66,8 @@ public class Lexico extends Lexemas {
 						print("COMENTARIO DE LINHA!\n");
 						String sAfter1 = getChar(source, i);
 
-						// Percorre a string em busca do fim do comentário
-						while ((sAfter1.equals("\n") == false || sAfter1.equals("\0")) && (i < source.length())) {
+						// Percorre a string em busca do fim do comentario
+						while ((!sAfter1.equals("\n") || sAfter1.equals("\0")) && (i < source.length())) {
 							// Obtem o caractere na posicao i
 
 							sAfter1 = getChar(source, i);
@@ -95,7 +96,7 @@ public class Lexico extends Lexemas {
 							System.out.println(blz.equals("*"));
 
 							// Enquanto nao encontrar um '*' ou final da string
-							while (blz.equals("*") == false || blz.equals("\0") == false && (i < source.length())) {
+							while (!blz.equals("*") || !blz.equals("\0") && (i < source.length())) {
 								System.out.printf("i: %2d - %s\n", i, blz);
 
 								// Le um caractere da String
@@ -120,27 +121,27 @@ public class Lexico extends Lexemas {
 			}
 
 			// TODO: Tratando Separadores
-			// Verifica se o caractere lido é um separador
+			// Verifica se o caractere lido eh um separador
 			else if (isSeparator(sLida)) {
-				print("É Separador!");
+				print("ï¿½ Separador!");
 				System.out.printf("auX: [%s]\n", auX);
 
-				// Verifica se é BarraN
+				// Verifica se eh BarraN
 				if (sLida.equals("\n")) {
 					print("BarraN");
 				}
 
 				// String t recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o caractere anterior é um operador
+				// Verifica se o caractere anterior eh um operador
 				if (isOperador(sBefore)) {
-					print("Caractere Anterior é Operador!");
+					print("Caractere Anterior eh Operador!");
 					System.out.printf("sBefore: [%s]\n", sBefore);
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("Separador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o caractere anterior é um separador
+				// Verifica se o caractere anterior eh um separador
 				else if (isSeparator(sBefore)) {
 					// adiciona o separador
 					tokenList.add(new Token(sLida, contaLinhas));
@@ -160,13 +161,13 @@ public class Lexico extends Lexemas {
 			}
 
 			// TODO: Tratando Operadores
-			// Verifica se o caractere lido é um operador
+			// Verifica se o caractere lido eh um operador
 			else if (isOperador(sLida)) {
-				print("É Operador!");
+				print("Eh Operador!");
 				System.out.printf("auX: [%s]\n", auX);
 
 				// Tratamento para Operadores Binarios
-				// Se o proximo caractere da string de origem é operador
+				// Se o proximo caractere da string de origem ï¿½ operador
 				if (isOperador(getChar(source, i + 1))) {
 					// Adiciona Aux
 					System.out.printf("BUB: Operador (%s) Adicionado\n", auX);
@@ -178,18 +179,18 @@ public class Lexico extends Lexemas {
 
 				// String sBefore recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o caractere anterior é um operador
+				// Verifica se o caractere anterior ï¿½ um operador
 				if (isOperador(sBefore)) {
 					// adiciona o operador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("XOW: Operador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o caractere anterior é um separador
+				// Verifica se o caractere anterior ï¿½ um separador
 				else if (isSeparator(sBefore)) {
-					// Verificação para operadores binários
+					// Verificaï¿½ï¿½o para operadores binï¿½rios
 					// String t recebe o caractere Posterior
 					String sAfter = getChar(source, i + 1);
-					// Verifica se o simbolo anterior é um operador
+					// Verifica se o simbolo anterior ï¿½ um operador
 					if (isOperador(sAfter)) {
 						// Concatena as duas Strings
 						sLida = sLida + sAfter;
@@ -215,11 +216,11 @@ public class Lexico extends Lexemas {
 				auX = "";
 			}
 
-			// Se i é igual ao tamanho da palavra e o concanetado não é
+			// Se i ï¿½ igual ao tamanho da palavra e o concanetado nï¿½o ï¿½
 			// nem operador nem separador
 			// TODO: Testar possibilidade de ignorar
 			// TODO: Consultar a lista de lexemas: Se nao eh palavra reservada,
-			// é ID
+			// ï¿½ ID
 			else if (i == source.length()) {
 				// adiciona token
 				tokenList.add(new Token(auX, contaLinhas));
@@ -231,7 +232,7 @@ public class Lexico extends Lexemas {
 			i++;
 		}
 
-		// Chamada do procedimento para limpeza dos espaços na lista de tokens
+		// Chamada do procedimento para limpeza dos espaï¿½os na lista de tokens
 		tokenList = removeSpaces(tokenList);
 
 		// Exibe a Lista de Tokens
@@ -243,7 +244,7 @@ public class Lexico extends Lexemas {
 	}
 
 	// Atalho para printar
-	public void print(String string) {
+	private void print(String string) {
 		System.out.println(string);
 	}
 
@@ -277,7 +278,7 @@ public class Lexico extends Lexemas {
 	}
 
 	// Realiza a identificacao dos tokens
-	public void tokenizer(ArrayList<Token> tokenList) {
+	private void tokenizer(ArrayList<Token> tokenList) {
 		Lexemas lexemas = new Lexemas();
 		String nomeTok = null;
 
@@ -312,7 +313,7 @@ public class Lexico extends Lexemas {
 		}
 	}
 
-	// Remove os Espaços na Lista de Tokens
+	// Remove os Espaï¿½os na Lista de Tokens
 	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
 		print("\nREMOVENDO ESPACOS VAZIOS...\n");
 
@@ -325,9 +326,9 @@ public class Lexico extends Lexemas {
 		 * System.out.println(ascii);
 		 * 
 		 * switch (lexema) { // Remove Espacos case " ": tokenList.remove(i); i
-		 * = i + 1; break; // Remove Tabulações case "\t": tokenList.remove(i);
-		 * i = i + 1; break; // Remove Quebras de Linha case "\n":
-		 * tokenList.remove(i); i = i + 1; default: break; } }
+		 * = i + 1; break; // Remove Tabulaï¿½ï¿½es case "\t":
+		 * tokenList.remove(i); i = i + 1; break; // Remove Quebras de Linha
+		 * case "\n": tokenList.remove(i); i = i + 1; default: break; } }
 		 */
 
 		for (int i = 0; i < tokenList.size(); i++) {
@@ -347,7 +348,7 @@ public class Lexico extends Lexemas {
 				tokenList.remove(i);
 				i = i - 1;
 				break;
-			// Remove Tabulações
+			// Remove Tabulaï¿½ï¿½es
 			case "\t":
 				tokenList.remove(i);
 				i = i - 1;
@@ -369,8 +370,8 @@ public class Lexico extends Lexemas {
 		return tokenList;
 	}
 
-	// Retorna se uma dada string é um separador
-	boolean isSeparator(String s) {
+	// Retorna se uma dada string ï¿½ um separador
+	private boolean isSeparator(String s) {
 		for (String string : separadores) {
 			if (s.equals(string)) {
 				return true;
@@ -379,8 +380,8 @@ public class Lexico extends Lexemas {
 		return false;
 	}
 
-	// Retorna se uma dada string é um separador
-	boolean isOperador(String s) {
+	// Retorna se uma dada string ï¿½ um separador
+	private boolean isOperador(String s) {
 		for (String string : operadores) {
 			if (s.equals(string)) {
 				return true;
@@ -390,26 +391,26 @@ public class Lexico extends Lexemas {
 	}
 
 	// Retorna o caractere de uma dada posicao numa string
-	String getChar(String source, int i) {
+	private String getChar(String source, int i) {
 		return Character.toString(source.charAt(i));
 	}
 
-	// Retorna false caso exista erro léxico
+	// Retorna false caso exista erro lï¿½xico
 	public boolean findErrors(ArrayList<Token> tokenList) {
 		boolean retorno = false;
 
-		print("\nBUSCANDO ERROS LÉXICOS:");
+		print("\nBUSCANDO ERROS LEXICOS:");
 
 		for (int i = 0; i < tokenList.size(); i++) {
 			String tk = tokenList.get(i).getNomeToken();
 			String lexema = tokenList.get(i).getLexema();
 
-			// Verifica se o nome de um ID é válido
+			// Verifica se o nome de um ID eh valido
 			if (tk.equals("ID")) {
 				if (lexema.matches("[A-Za-z_]([A-Za-z]|[0-9]|_)*")) {
 					// print("ACEITA!");
 				} else {
-					System.out.print("Token [" + lexema + "] não reconhecido na linha ");
+					System.out.print("Token [" + lexema + "] nao reconhecido na linha ");
 					System.out.println(tokenList.get(i).getnLinha() + ".");
 					retorno = true;
 				}

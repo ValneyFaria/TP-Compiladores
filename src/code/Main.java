@@ -3,7 +3,7 @@ package code;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 
-public class Main {
+class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		String fileName = "code.c";
@@ -20,7 +20,7 @@ public class Main {
 
 		ReadSource rs = new ReadSource();
 
-		// String que contem todos os caracteres do arquivo de código
+		// String que contem todos os caracteres do arquivo de cï¿½digo
 		source = rs.Reader(fileName);
 
 		Lexico c = new Lexico();
@@ -44,7 +44,7 @@ public class Main {
 
 		Sintatico s = new Sintatico(tokenList);
 
-		// Inicia a análise sintática
+		// Inicia a anï¿½lise sintï¿½tica
 		s.Programa();
 
 		// Constroi um arquivo que armazena a tabela de simbolos
