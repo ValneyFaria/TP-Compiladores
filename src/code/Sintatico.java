@@ -1,11 +1,15 @@
 package code;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.ArrayList;
 
 public class Sintatico {
 	int i = 0;
 	Token token = new Token();
+	Simbolo simbolo = new Simbolo();
 	ArrayList<Token> tokenList = new ArrayList<Token>();
 	HashMap<String, Simbolo> Simbolos = new HashMap<String, Simbolo>();
 
@@ -54,6 +58,8 @@ public class Sintatico {
 		Decl_Comando();
 		match("RBRACE");
 		print("\nFIM DA ANÁLISE SEMÂNTICA!");
+
+		ImprimeListaSimbolos();
 	}
 
 	// Declaracao Decl_Comando | Comando Decl_Comando | Vazia
@@ -79,11 +85,16 @@ public class Sintatico {
 		// Declaracao
 		// TODO: Tratar Vazias
 
+		// TODO: Adiciona o Tipo e a linha ao simbolo
 		case "INT":
+			simbolo.setTipo("INT");
+			simbolo.setnLinha(tokenList.get(i).getnLinha());
 			Declaracao();
 			Decl_Comando();
 			break;
 		case "FLOAT":
+			simbolo.setTipo("FLOAT");
+			simbolo.setnLinha(tokenList.get(i).getnLinha());
 			Declaracao();
 			Decl_Comando();
 			break;
@@ -129,6 +140,8 @@ public class Sintatico {
 		// O erro ocorre aqui porque um ID era esperado e foi encontrado um
 		// INTEGER_CONST na entrada
 		match("ID");
+		// Adiciona o lexema atual ao simbolo antes de chamar Decl2()
+		simbolo.setLexema(tokenList.get(i - 1).getLexema());
 		Decl2();
 	}
 
@@ -137,13 +150,16 @@ public class Sintatico {
 		// print("Ativando Decl2()");
 		String Aux = tokenList.get(i).getNomeToken();
 
+		// TODO: Inserção do símbolo no HashMap
 		switch (Aux) {
 		case "COMMA":
+			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 			match("COMMA");
 			match("ID");
 			Decl2();
 			break;
 		case "PCOMMA":
+			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 			match("PCOMMA");
 			break;
 		case "ATTR":
@@ -464,5 +480,30 @@ public class Sintatico {
 	// Atalho para printar
 	public void print(String string) {
 		System.out.println(string);
+	}
+
+	private void ImprimeListaSimbolos() {
+		print("\nLISTA DE SIMBOLOS:\n");
+
+		/* Exibe conteudo usando Iterator */
+		Set<Entry<String, Simbolo>> set = Simbolos.entrySet();
+		Iterator<Entry<String, Simbolo>> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Simbolo> mentry = iterator.next();
+			System.out.print("CHAVE: \"" + mentry.getKey() + "\"");
+			printaSpaces(mentry.getKey().length());
+			System.out.print(" VALOR:");
+			printaSpaces(2);
+
+			System.out.println(mentry.getValue().getLexema());
+		}
+
+	}
+
+	private void printaSpaces(int i) {
+		while (i < 5) {
+			System.out.print(" ");
+			i++;
+		}
 	}
 }
