@@ -123,7 +123,7 @@ class Lexico extends Lexemas {
 			// TODO: Tratando Separadores
 			// Verifica se o caractere lido eh um separador
 			else if (isSeparator(sLida)) {
-				print("� Separador!");
+				print("Eh Separador!");
 				System.out.printf("auX: [%s]\n", auX);
 
 				// Verifica se eh BarraN
@@ -167,7 +167,7 @@ class Lexico extends Lexemas {
 				System.out.printf("auX: [%s]\n", auX);
 
 				// Tratamento para Operadores Binarios
-				// Se o proximo caractere da string de origem � operador
+				// Se o proximo caractere da string de origem eh operador
 				if (isOperador(getChar(source, i + 1))) {
 					// Adiciona Aux
 					System.out.printf("BUB: Operador (%s) Adicionado\n", auX);
@@ -179,18 +179,18 @@ class Lexico extends Lexemas {
 
 				// String sBefore recebe o caractere anterior
 				String sBefore = getChar(source, i - 1);
-				// Verifica se o caractere anterior � um operador
+				// Verifica se o caractere anterior eh um operador
 				if (isOperador(sBefore)) {
 					// adiciona o operador
 					tokenList.add(new Token(sLida, contaLinhas));
 					System.out.printf("XOW: Operador (%s) Adicionado\n", sLida);
 				}
-				// Verifica se o caractere anterior � um separador
+				// Verifica se o caractere anterior eh um separador
 				else if (isSeparator(sBefore)) {
-					// Verifica��o para operadores bin�rios
+					// Verificacao para operadores binarios
 					// String t recebe o caractere Posterior
 					String sAfter = getChar(source, i + 1);
-					// Verifica se o simbolo anterior � um operador
+					// Verifica se o simbolo anterior eh um operador
 					if (isOperador(sAfter)) {
 						// Concatena as duas Strings
 						sLida = sLida + sAfter;
@@ -216,11 +216,11 @@ class Lexico extends Lexemas {
 				auX = "";
 			}
 
-			// Se i � igual ao tamanho da palavra e o concanetado n�o �
+			// Se i eh igual ao tamanho da palavra e o concanetado nao eh
 			// nem operador nem separador
 			// TODO: Testar possibilidade de ignorar
 			// TODO: Consultar a lista de lexemas: Se nao eh palavra reservada,
-			// � ID
+			// eh ID
 			else if (i == source.length()) {
 				// adiciona token
 				tokenList.add(new Token(auX, contaLinhas));
@@ -232,7 +232,7 @@ class Lexico extends Lexemas {
 			i++;
 		}
 
-		// Chamada do procedimento para limpeza dos espa�os na lista de tokens
+		// Chamada do procedimento para limpeza dos espacos na lista de tokens
 		removeSpaces(tokenList);
 
 		// Exibe a Lista de Tokens
@@ -314,7 +314,7 @@ class Lexico extends Lexemas {
 	}
 
 	// Remove os Espacos na Lista de Tokens
-	private ArrayList<Token> removeSpaces(ArrayList<Token> tokenList) {
+	private void removeSpaces(ArrayList<Token> tokenList) {
 		print("\nREMOVENDO ESPACOS VAZIOS...\n");
 
 		/*
@@ -326,9 +326,9 @@ class Lexico extends Lexemas {
 		 * System.out.println(ascii);
 		 * 
 		 * switch (lexema) { // Remove Espacos case " ": tokenList.remove(i); i
-		 * = i + 1; break; // Remove Tabula��es case "\t":
-		 * tokenList.remove(i); i = i + 1; break; // Remove Quebras de Linha
-		 * case "\n": tokenList.remove(i); i = i + 1; default: break; } }
+		 * = i + 1; break; // Remove Tabulacoes case "\t": tokenList.remove(i);
+		 * i = i + 1; break; // Remove Quebras de Linha case "\n":
+		 * tokenList.remove(i); i = i + 1; default: break; } }
 		 */
 
 		for (int i = 0; i < tokenList.size(); i++) {
@@ -348,7 +348,7 @@ class Lexico extends Lexemas {
 				tokenList.remove(i);
 				i = i - 1;
 				break;
-			// Remove Tabula��es
+			// Remove Tabulacoes
 			case "\t":
 				tokenList.remove(i);
 				i = i - 1;
@@ -367,10 +367,9 @@ class Lexico extends Lexemas {
 				break;
 			}
 		}
-		return tokenList;
 	}
 
-	// Retorna se uma dada string � um separador
+	// Retorna se uma dada string eh um separador
 	private boolean isSeparator(String s) {
 		for (String string : separadores) {
 			if (s.equals(string)) {
@@ -380,7 +379,7 @@ class Lexico extends Lexemas {
 		return false;
 	}
 
-	// Retorna se uma dada string � um separador
+	// Retorna se uma dada string eh um separador
 	private boolean isOperador(String s) {
 		for (String string : operadores) {
 			if (s.equals(string)) {
@@ -395,7 +394,7 @@ class Lexico extends Lexemas {
 		return Character.toString(source.charAt(i));
 	}
 
-	// Retorna false caso exista erro l�xico
+	// Retorna false caso exista erro lexico
 	public boolean findErrors(ArrayList<Token> tokenList) {
 		boolean retorno = false;
 

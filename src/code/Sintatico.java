@@ -7,9 +7,10 @@ import java.util.ArrayList;
 
 class Sintatico {
 	private int i = 0;
+	private String tipo;
 	private Token token = new Token();
 	private ArrayList<Token> tokenList = new ArrayList<>();
-	private HashMap<String, Simbolo> Simbolos = new HashMap<>();
+	private HashMap<String, Simbolo> SymbolTable = new HashMap<>();
 
 	public Sintatico(ArrayList<Token> tokenList) {
 		this.tokenList = tokenList;
@@ -21,7 +22,7 @@ class Sintatico {
 	private void imprimeErro() {
 		print("Erro sintatico. Token nao esperado na entrada.");
 		i = i - 1;
-		// Continua a an�lise para verificar outros erros
+		// Continua a analise para verificar outros erros
 		i = i + 1;
 		token = tokenList.get(i);
 	}
@@ -64,8 +65,6 @@ class Sintatico {
 	private void Decl_Comando() {
 		// print("Ativando Decl_Comando()");
 
-		Simbolo simbolo = new Simbolo();
-
 		String Aux = tokenList.get(i).getNomeToken();
 
 		// Declaracao -> Tipo -> INT | FLOAT
@@ -87,13 +86,11 @@ class Sintatico {
 
 		// TODO: Adiciona o Tipo e a linha ao simbolo
 		case "INT":
-			simbolo.setTipo("INT");
-			Declaracao(simbolo);
+			Declaracao();
 			Decl_Comando();
 			break;
 		case "FLOAT":
-			simbolo.setTipo("FLOAT");
-			Declaracao(simbolo);
+			Declaracao();
 			Decl_Comando();
 			break;
 
@@ -132,58 +129,63 @@ class Sintatico {
 	}
 
 	// Tipo ID Decl2
-	private void Declaracao(Simbolo simbolo) {
+	private void Declaracao() {
 		// print("Ativando Declaracao()");
-		print(simbolo.getTipo());
-		Tipo();
-		print(simbolo.getTipo());
-		// Adiciona o lexema atual ao simbolo antes de chamar Decl2()
-		simbolo.setLexema(tokenList.get(i).getLexema());
-		System.out.println("LEXEMA:" + simbolo.getLexema());
-		Simbolos.put(tokenList.get(i).getLexema(), simbolo);
-		match("ID");
 
-		Decl2(simbolo);
+		Tipo();
+		// Token Temporario
+		Token tokAtual = tokenList.get(i);
+		// Cria o Simbolo
+		Simbolo simbolo = new Simbolo(tokAtual.getLexema(), tipo, i);
+		// Adiciona o Simbolo na Tabela de Simbolos
+		SymbolTable.put(simbolo.getLexema(), simbolo);
+
+		match("ID");
+		Decl2();
 	}
 
 	// COMMA ID Decl2 | PCOMMA | ATTR Expressao Decl2
-	private void Decl2(Simbolo simbolo) {
+	private void Decl2() {
 		// print("Ativando Decl2()");
 		String Aux = tokenList.get(i).getNomeToken();
 
-		simbolo.setLexema(tokenList.get(i).getLexema());
-
-		// TODO: Insercao do simbolo no HashMap
 		switch (Aux) {
 		case "COMMA":
-			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 			match("COMMA");
+			
+			// Token Temporario
+			Token tokAtual = tokenList.get(i);
+			// Cria o Simbolo
+			Simbolo simbolo = new Simbolo(tokAtual.getLexema(), tipo, i);
+			// Adiciona o Simbolo na Tabela de Simbolos
+			SymbolTable.put(simbolo.getLexema(), simbolo);
+			
 			match("ID");
-			Decl2(simbolo);
+			Decl2();
 			break;
 		case "PCOMMA":
-			Simbolos.put(tokenList.get(i).getLexema(), simbolo);
 			match("PCOMMA");
 			break;
 		case "ATTR":
 			match("ATTR");
 			Expressao();
-			Decl2(simbolo);
+			Decl2();
 			break;
 		}
 	}
 
 	// INT | FLOAT
 	private void Tipo() {
-		// print("Ativando Tipo()");
 		String Aux = tokenList.get(i).getNomeToken();
 
 		switch (Aux) {
 		case "INT":
 			match("INT");
+			tipo = "INT";
 			break;
 		case "FLOAT":
 			match("FLOAT");
+			tipo = "FLOAT";
 			break;
 		}
 	}
@@ -489,7 +491,7 @@ class Sintatico {
 		print("\nLISTA DE SIMBOLOS:\n");
 
 		/* Exibe conteudo usando Iterator */
-		Set<Entry<String, Simbolo>> set = Simbolos.entrySet();
+		Set<Entry<String, Simbolo>> set = SymbolTable.entrySet();
 		for (Entry<String, Simbolo> mentry : set) {
 			System.out.print("CHAVE (lex.): \"" + mentry.getKey() + "\"");
 			printaSpaces(mentry.getKey().length());

@@ -1,7 +1,6 @@
 package code;
 
 import java.util.ArrayList;
-import java.io.FileNotFoundException;
 
 class Main {
 
@@ -20,7 +19,7 @@ class Main {
 
 		ReadSource rs = new ReadSource();
 
-		// String que contem todos os caracteres do arquivo de c�digo
+		// String que contem todos os caracteres do arquivo de codigo
 		source = rs.Reader(fileName);
 
 		Lexico c = new Lexico();
@@ -44,7 +43,7 @@ class Main {
 
 		Sintatico s = new Sintatico(tokenList);
 
-		// Inicia a an�lise sint�tica
+		// Inicia a analise sintatica
 		s.Programa();
 
 		// Constroi um arquivo que armazena a tabela de simbolos

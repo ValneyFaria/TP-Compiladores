@@ -5,6 +5,12 @@ class Simbolo {
 	private String tipo;
 	private String lexema;
 
+	Simbolo(String lexema, String tipo, int nLinha) {
+		this.lexema = lexema;
+		this.tipo = tipo;
+		this.nLinha = nLinha;
+	}
+
 	public int getnLinha() {
 		return nLinha;
 	}
