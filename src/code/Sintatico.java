@@ -137,8 +137,14 @@ class Sintatico {
 		Token tokAtual = tokenList.get(i);
 		// Cria o Simbolo
 		Simbolo simbolo = new Simbolo(tokAtual.getLexema(), tipo, i);
-		// Adiciona o Simbolo na Tabela de Simbolos
-		SymbolTable.put(simbolo.getLexema(), simbolo);
+
+		// Verifica se o Simbolo ja existe na tabela de simbolos
+		if (SymbolTable.containsKey(simbolo.getLexema())) {
+			print("\nVariavel [" + simbolo.getLexema() + "] ja declarada!\n");
+		} else {
+			// Adiciona o Simbolo na Tabela de Simbolos
+			SymbolTable.put(simbolo.getLexema(), simbolo);
+		}
 
 		match("ID");
 		Decl2();
@@ -152,14 +158,14 @@ class Sintatico {
 		switch (Aux) {
 		case "COMMA":
 			match("COMMA");
-			
+
 			// Token Temporario
 			Token tokAtual = tokenList.get(i);
 			// Cria o Simbolo
 			Simbolo simbolo = new Simbolo(tokAtual.getLexema(), tipo, i);
 			// Adiciona o Simbolo na Tabela de Simbolos
 			SymbolTable.put(simbolo.getLexema(), simbolo);
-			
+
 			match("ID");
 			Decl2();
 			break;
@@ -498,7 +504,7 @@ class Sintatico {
 			System.out.print(" VALOR (obj. lex.):");
 			printaSpaces(2);
 
-			System.out.println(mentry.getValue().getLexema());
+			System.out.println(mentry.getValue().getTipo());
 		}
 	}
 
