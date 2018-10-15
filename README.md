@@ -1,6 +1,6 @@
-*****************************************************************
-**Desenvolvido por Valney de Paiva Faria e Gabriel Silva Araujo**
-*****************************************************************
+******************************************
+**Desenvolvido por Valney de Paiva Faria**
+******************************************
 
 Para executar este software basta abrir o mesmo por meio da IDE Eclipse e executar a 
 Classe Main.
