@@ -10,12 +10,12 @@ possuir o nome "code.c".
 	
 Exemplo:
 	
-Entrada:
+### Entrada:
 	```
 	Para fazer a análise léxica e sintática do arquivo "code.c", basta adicioná-lo na pasta 
 	TP-Compiladores e executar o código por meio da IDE Eclipse.
 	```
-Saída:
+### Saída:
 	```
 	Na saída o programa irá exibir uma lista com os tokens encontrados e uma tabela
 	de símbolos será gerada no arquivo Tabela de Simbolos.txt dentro da pasta TP-Compiladores.
